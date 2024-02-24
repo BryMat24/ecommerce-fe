@@ -43,7 +43,7 @@ export default function Navbar() {
                 </Link>
             </Button>
             <Button asChild className="py-6 px-2 my-1 align-left justify-start hover:bg-black hover:text-white" variant="ghost">
-                <Link href="/login" className="">
+                <Link href="/settings" className="">
                     <IoSettingsOutline className="text-2xl mr-2" />
                     <div>Settings</div>
                 </Link>
