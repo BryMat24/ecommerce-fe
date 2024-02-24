@@ -10,7 +10,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 
 export default function Navbar() {
   return (
-    <nav className="flex flex-col justify-between">
+    <nav className="flex flex-col justify-between h-[calc(70vh-3.5rem)]">
         <div className="pb-16 mr-12">
             <h1 className="text-3xl font-bold">Explore</h1>
         </div>
