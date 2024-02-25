@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import MainImg from "../../public/ecommerce.jpeg";
+
 export default function Home() {
   return (
     <main className="w-full px-12 py-14 h-full">

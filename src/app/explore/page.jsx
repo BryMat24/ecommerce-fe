@@ -2,8 +2,10 @@
 import OfferCarousel from "./components/carousel/carousel";
 import TopProducts from "./components/products/top-products";
 import Image from "next/image";
+import Link from "next/link";
 import OfferImage from "../../../public/discount.webp";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+
 export default function ExplorePage(){
     return(
         <div className="w-full py-8">
@@ -21,7 +23,7 @@ export default function ExplorePage(){
             </div>
 
             <div className="px-14 mt-6">
-                <h1 className="font-bold text-2xl mb-4  ">Top Products <span className="text-sm font-normal ml-2 ">view all</span> </h1>
+                <h1 className="font-bold text-2xl mb-4  ">Top Products <Link className="text-sm font-normal ml-2 hover:underline" href="/explore/category/all">view all</Link> </h1>
                 <TopProducts />
             </div>
         </div>
