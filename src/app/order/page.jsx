@@ -1,13 +1,8 @@
-import { Button } from "@/components/ui/button"
+"use client";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
-
 
 import {
     Accordion,
@@ -50,17 +45,9 @@ const getOrderCard = (order) => {
                 </AccordionContent>
             </AccordionItem>
         </Accordion>
-        // <Card className="border-2 w-2/3 h-24 mt-4">
-        //     <CardContent className=" w-full h-full flex items-center p-2">
-        //         <div className="h-16 w-16 border-2"></div>
-        //         <div className="h-16 m-4 flex flex-col justify-center">
-        //             <div>Item Name</div>
-        //             <div>Order Status: Sending</div>
-        //         </div>
-        //     </CardContent>
-        // </Card>
     )
 }
+
 export default function OrderPage(){
     return(
         <div className="py-12 mr-28 w-full">
