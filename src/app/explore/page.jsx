@@ -4,6 +4,7 @@ import TopProducts from "./components/products/top-products";
 import Image from "next/image";
 import OfferImage from "../../../public/discount.webp";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+
 export default function ExplorePage(){
     return(
         <div className="w-full py-8">
