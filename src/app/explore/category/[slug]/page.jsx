@@ -1,5 +1,7 @@
 "use client";
 import { useEffect, useState } from "react"
+import LoadingCategory from "./components/loading/loading";
+import CategoryProduct from "./components/product/product";
 
 export default function CategoryDetailsPage({ params }){
     const [products, setProducts] = useState([]);
@@ -26,12 +28,12 @@ export default function CategoryDetailsPage({ params }){
     
     return(
         loading? 
-        (<div>Loading...</div>)
+        (
+            <LoadingCategory/>
+        )
         :
         (
-            <div className="">
-                {products.map((item, index) => <div>{item.name}</div>)}
-            </div>
+            <CategoryProduct products={products}/>
         )
     )
 }
