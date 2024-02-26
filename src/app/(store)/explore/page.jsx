@@ -3,7 +3,7 @@ import OfferCarousel from "./components/carousel/carousel";
 import TopProducts from "./components/products/top-products";
 import Image from "next/image";
 import Link from "next/link";
-import OfferImage from "../../../public/discount.webp";
+import OfferImage from "@/../public/discount.webp";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 export default function ExplorePage(){
