@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Button } from "@/components/ui/button";
 import MainImg from "../../public/ecommerce.jpeg";
 
 export default function Home() {
@@ -12,6 +13,7 @@ export default function Home() {
           fill
           className="object-cover" />
       </AspectRatio>
+      <Button className="mt-8 opacity-20 hover:opacity-100">Shop Now</Button>
     </main>
   );
 }

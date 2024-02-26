@@ -6,22 +6,23 @@ import CartSummary from "./components/cart-summary/cart-summary";
 export default function CartPage(){
     const [cart, setCart] = useState([]);
     const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        const fetchCart = async () => {
-            await fetch("/api/cart", {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-            .then(res => res.json())
-            .then(res => res.data)
-            .then(res => {
-                setCart(res);
-                setLoading(false);
-            })
-        }
 
+    const fetchCart = async () => {
+        setLoading(true);
+        await fetch("/api/cart", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(res => res.json())
+        .then(res => res.data)
+        .then(res => {
+            setCart(res);
+            setLoading(false);
+        })
+    }
+    useEffect(() => {
         fetchCart();
     }, [])
 
@@ -34,9 +35,9 @@ export default function CartPage(){
                 (
                     <div className="w-full flex flex-row">
                         <div className="w-2/3">
-                            <CartSummary cart={cart}></CartSummary>
+                            <CartSummary cart={cart} fetchCart={fetchCart}></CartSummary>
                         </div>
-                        <div className="w-1/3 bg-muted">
+                        <div className="w-1/3">
                             <OrderSummary cart={cart}></OrderSummary>
                         </div>
                     </div>

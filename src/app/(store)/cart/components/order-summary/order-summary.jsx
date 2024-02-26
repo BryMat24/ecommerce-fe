@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 export default function OrderSummary({cart}){
     const [total, setTotal] = useState(0);
     useEffect(() => {
-        cart.forEach(item => {
-            setTotal(total + item.quantity * item.product.price)
+        let sum = 0;
+        cart.forEach(async item => {
+            sum += item.quantity * item.product.price
         })
+        setTotal(sum)
     }, [])
     return(
-        <div className="w-full h-full p-6">
+        <div className="w-full h-auto p-6 bg-muted">
             <h2 className="font-bold text-xl w-full">Order Summary</h2>
             <div className="flex flex-row text-sm">
                 <div className="w-2/3">
@@ -23,7 +25,7 @@ export default function OrderSummary({cart}){
                     <div className="font-bold">S${total.toFixed(2)}</div>
                 </div>
             </div>
-            <Button className="w-full mt-6">Checkout</Button>
+            <Button className="w-full mt-12 mb-4">Checkout</Button>
         </div>
     )
 }
