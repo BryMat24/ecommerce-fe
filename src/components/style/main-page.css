@@ -1,0 +1,76 @@
+html, body{
+    scroll-behavior: smooth;
+}
+#main-page-title{
+    font-family: 'Roboto', sans-serif;
+    animation: slide-up-appear 1s ease-in-out;
+}
+#main-page-image{
+    animation: slide-down-appear 1s ease-out;
+}
+
+#main-page-image-2{
+    animation: slide-left-appear 1.5s ease-out;
+}
+
+#main-page-section-1{
+    animation: slide-right-appear 1.5s ease-in-out;
+}
+#main-page-section-2{
+    animation: slide-right-appear-2 1.5s ease-in-out;
+}
+
+@keyframes slide-up-appear{
+    0%{
+        opacity: 0.2;
+        transform: translateY(20vh);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0);
+    };
+}
+
+@keyframes slide-down-appear{
+    0%{
+        opacity: 0.2;
+        transform: translateY(-20vh);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0);
+    };
+}
+
+@keyframes slide-left-appear{
+    0%{
+        opacity: 0.2;
+        transform: translateX(-33.3vh);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0);
+    };
+}
+
+@keyframes slide-right-appear{
+    0%{
+        opacity: 0.2;
+        transform: translateX(33.3vh);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0);
+    };
+}
+
+@keyframes slide-right-appear-2{
+    0%{
+        opacity: 0.2;
+        transform: translateX(50vh);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0);
+    };
+}
