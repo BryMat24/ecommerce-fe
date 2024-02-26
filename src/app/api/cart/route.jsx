@@ -9,9 +9,9 @@ export async function GET(){
 }
 
 export async function POST(request){
-    const product = await request.json().then(res => res.product);
-    const quantity = await request.json().then(res => res.quantity);
-    const cartItems = carts.concat({product, quantity});
+    const json = await request.json();
+    const {productID, quantity} = json;
+    const cartItems = carts.concat({productID, quantity});
 
     return NextResponse.json({data: cartItems})
 }
