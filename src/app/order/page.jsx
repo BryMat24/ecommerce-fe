@@ -18,7 +18,7 @@ const orders = [
 
 const getOrderCard = (order) => {
     return(
-        <Accordion type="single" collapsible className="w-full">
+        <Accordion type="single" collapsible className="w-full border-b">
             <AccordionItem className="w-full" value="item-1">
                 <AccordionTrigger className="w-full hover:no-underline">
                     <Card className="w-2/3 h-24 mt-4 border-0 shadow-none">
