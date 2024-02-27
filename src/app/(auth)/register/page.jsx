@@ -8,18 +8,18 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
 const Register = () => {
-    const [data, setData] = useState({});
+    const [userData, setUserData] = useState({});
     const { toast } = useToast();
     const router = useRouter();
 
     const handleOnChange = (e) => {
-        setData({ ...data, [e.target.name]: e.target.value });
+        setUserData({ ...userData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
-            await apiClient.post("/register", data);
+            await apiClient.post("/register", userData);
             toast({ title: "Register success!" });
             router.push("/login");
         } catch (err) {
