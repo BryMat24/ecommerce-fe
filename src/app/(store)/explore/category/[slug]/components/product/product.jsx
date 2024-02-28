@@ -9,7 +9,7 @@ import Link from 'next/link';
 
 const getProductCard = (product) => {
     return (
-        <Link href="/" className='mx-4 mb-8 border-none'>
+        <Link href={`/product/${product.id}`} className='mx-4 mb-8 border-none'>
             <Card className="w-[20rem] h-[32rem] border-none shadow-2xl">
                 <CardHeader className="p-0">
                     <div className='w-[20rem] h-[20rem] bg-primary rounded-md'>

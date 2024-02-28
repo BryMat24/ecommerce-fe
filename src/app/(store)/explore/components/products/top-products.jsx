@@ -6,40 +6,8 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
+import { apiClient } from "@/lib/axios";
 import Link from "next/link";
-
-
-// change to products when BE is ready
-const items = [
-    {
-        id: 1,
-        heading: "Best Seller",
-        name: "Item 1",
-        description: "Item 1 description",
-        price: 0,
-    },
-    {
-        id: 2,
-        heading: "Best Seller",
-        name: "Item 2",
-        description: "Item 2 description",
-        price: 0,
-    },
-    {
-        id: 3,
-        heading: "New Arrival",
-        name: "Item 3",
-        description: "Item 3 description",
-        price: 0,
-    },
-    {
-        id: 4,
-        heading: "New Arrival",
-        name: "Item 4",
-        description: "Item 4 description",
-        price: 0,
-    },
-]
 
 const getProduct = (product) => {
     return(
@@ -63,12 +31,12 @@ const getProduct = (product) => {
 }
 
   
-export default function TopProducts(){
+export function TopProducts({products}){
     return(
         <div className="flex justify-between">
-            {items.map((item, index) => (
+            {products.map((product, index) => (
                 <div key={index}>
-                    {getProduct(item)}
+                    {getProduct(product)}
                 </div>
             ))}
         </div>

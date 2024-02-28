@@ -3,6 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { GrCart } from "react-icons/gr";
 import { useState, useEffect } from "react"
+import { apiClient } from "@/lib/axios";
+
 export default function ProductPage({params}){
     const [loading, setLoading] = useState(true);
     const [product, setProduct] = useState({});
@@ -10,19 +12,18 @@ export default function ProductPage({params}){
 
     useEffect(() => {
         const fetchProduct = async () => {
-            const res = await fetch(`/api/product/${params.id}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            })
-            .then(res => res.json())
-            .then(res => {console.log(res); return res.data})
-            .then(res => {
-                setProduct(res)
-                setLoading(false)
-                console.log(res)
-            })
+            try{
+                const {data} = await apiClient.get(`/product/${params.id}`,{
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('access_token')}`
+                    }
+                })
+                setProduct(data);
+                setLoading(false);
+            }
+            catch(err){
+                console.log(err)
+            }
         }
         fetchProduct();
     },[])
