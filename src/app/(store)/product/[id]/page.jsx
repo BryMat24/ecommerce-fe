@@ -17,10 +17,11 @@ export default function ProductPage({params}){
                 },
             })
             .then(res => res.json())
-            .then(res => res.data)
+            .then(res => {console.log(res); return res.data})
             .then(res => {
                 setProduct(res)
                 setLoading(false)
+                console.log(res)
             })
         }
         fetchProduct();

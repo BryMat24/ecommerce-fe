@@ -8,26 +8,32 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 
+
+// change to products when BE is ready
 const items = [
     {
+        id: 1,
         heading: "Best Seller",
         name: "Item 1",
         description: "Item 1 description",
         price: 0,
     },
     {
+        id: 2,
         heading: "Best Seller",
         name: "Item 2",
         description: "Item 2 description",
         price: 0,
     },
     {
+        id: 3,
         heading: "New Arrival",
         name: "Item 3",
         description: "Item 3 description",
         price: 0,
     },
     {
+        id: 4,
         heading: "New Arrival",
         name: "Item 4",
         description: "Item 4 description",
@@ -37,12 +43,13 @@ const items = [
 
 const getProduct = (product) => {
     return(
-        <Link href="/">
+        <Link href={"/product/" + product.id}>
             <Card className="w-60 h-96">
                 <CardHeader>
                 </CardHeader>
                 <CardContent className="flex flex-col text-sm">
-                    <div className="w-48 h-48 border-2">
+                    <div className="w-48 h-48 border-2 bg-primary flex justify-center items-center text-white">
+                        Image
                         {/* <Image alt="Photo by Drew Beamer" fill className="object-cover" /> */}
                     </div>
                     <div className="mt-5 text-red-500 font-bold">{product.heading}</div>
