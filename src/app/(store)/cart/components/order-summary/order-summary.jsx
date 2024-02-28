@@ -1,14 +1,17 @@
 "use client";
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react";
-export default function OrderSummary({cart}){
+export default function OrderSummary({products}){
     const [total, setTotal] = useState(0);
+    
+    // if page is refreshed, the total sum is inconsistent
     useEffect(() => {
-        let sum = 0;
-        cart.forEach(async item => {
-            sum += item.quantity * item.product.price
-        })
-        setTotal(sum)
+        const getTotal = async () => {
+            products.forEach(item => {
+                setTotal(prev => prev + item.product.price * item.quantity)
+            })
+        }
+        getTotal()
     }, [])
     return(
         <div className="w-full h-auto p-6 bg-muted">

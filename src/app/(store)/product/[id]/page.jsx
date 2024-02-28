@@ -29,16 +29,13 @@ export default function ProductPage({params}){
     },[])
 
     const addToCart = async (quantity, productID) => {
-        await fetch('/api/cart', {
-            method: 'POST',
+        const { data } = await apiClient.post(`/cart/${productID}`, {quantity},
+        {
             headers: {
-                'Content-Type': 'application/json'
+                Authorization: `Bearer ${localStorage.getItem('access_token')}`
             },
-            body: JSON.stringify({productID, quantity})
         })
-        .then(res => res.json())
-        .then(res => res.data)
-        .then(res => console.log(res))
+        console.log(data)
     }
 
     return(

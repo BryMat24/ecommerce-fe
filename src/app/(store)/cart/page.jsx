@@ -3,25 +3,43 @@
 import { useEffect, useState } from "react";
 import OrderSummary from "./components/order-summary/order-summary";
 import CartSummary from "./components/cart-summary/cart-summary";
+import { apiClient } from "@/lib/axios";
+
 export default function CartPage(){
     const [cart, setCart] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const fetchCart = async () => {
+    const resetState = () => {
+        setCart([]);
         setLoading(true);
-        await fetch("/api/cart", {
-            method: "GET",
+    }
+    
+    // convert the obtained productId and quantity to the actual product details
+    const convertCart = async (rawCart) => {
+        resetState()
+        await rawCart.forEach(async (item) => {
+            await apiClient.get(`/product/${item.productId}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('access_token')}`
+                }
+            })
+            .then(data => setCart(prev => [...prev, {product: data.data, quantity: item.quantity}]))
+        })
+        return cart;
+    }
+
+    // fetch cart to get the list of products (productId) and its corresponding quantity
+    const fetchCart = async () => {
+        resetState();
+        await apiClient.get("/cart", {
             headers: {
-                "Content-Type": "application/json"
+                Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
         })
-        .then(res => res.json())
-        .then(res => res.data)
-        .then(res => {
-            setCart(res);
-            setLoading(false);
-        })
+        .then(async data => await convertCart(data.data))
+        .then(() => setLoading(false))
     }
+
     useEffect(() => {
         fetchCart();
     }, [])
@@ -38,7 +56,7 @@ export default function CartPage(){
                             <CartSummary cart={cart} fetchCart={fetchCart}></CartSummary>
                         </div>
                         <div className="w-1/3">
-                            <OrderSummary cart={cart}></OrderSummary>
+                            <OrderSummary products={cart}></OrderSummary>
                         </div>
                     </div>
                 )
