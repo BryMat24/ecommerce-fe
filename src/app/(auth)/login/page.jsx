@@ -18,9 +18,9 @@ export default function LoginPage() {
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
-            const { data } = authService.login(userData);
-            router.push("/explore");
+            const data = authService.login(userData);
             toast({ title: "Login success!", message: data?.message });
+            router.push("/explore");
         } catch (err) {
             toast({
                 title: "Login error!",

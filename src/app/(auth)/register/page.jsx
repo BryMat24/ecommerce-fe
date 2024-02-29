@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { FetchResponseHandler } from "@/utils/response-handler";
 
 const Register = () => {
     const [userData, setUserData] = useState({});
@@ -17,11 +16,14 @@ const Register = () => {
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
-
-            FetchResponseHandler.handleSuccess(data?.message);
+            const data = authService.register(userData);
+            toast({ title: "Login success!", message: data?.message });
             router.push("/login");
         } catch (err) {
-            FetchResponseHandler.handleError(err);
+            toast({
+                title: "Login error!",
+                description: err?.response?.data?.message,
+            });
         }
     };
 
