@@ -6,10 +6,10 @@ import { useToast } from "@/components/ui/use-toast";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { FetchResponseHandler } from "@/utils/response-handler";
 
 const Register = () => {
     const [userData, setUserData] = useState({});
-    const { toast } = useToast();
     const router = useRouter();
 
     const handleOnChange = (e) => {
@@ -19,14 +19,11 @@ const Register = () => {
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
-            await apiClient.post("/register", userData);
-            toast({ title: "Register success!" });
+            const { data } = await apiClient.post("/register", userData);
+            FetchResponseHandler.handleSuccess(data?.message);
             router.push("/login");
         } catch (err) {
-            toast({
-                title: "Register error!",
-                description: err?.response?.data?.message,
-            });
+            FetchResponseHandler.handleError(err);
         }
     };
 

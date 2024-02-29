@@ -13,6 +13,7 @@ import { BiCategory } from "react-icons/bi";
 import { LuTruck } from "react-icons/lu";
 import { FiUser } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
+import { useEffect, useState } from "react";
 
 const Routes = [
     {
@@ -29,11 +30,6 @@ const Routes = [
         name: "Order",
         icon: <LuTruck className="text-3xl mr-3" />,
         path: "/order",
-    },
-    {
-        name: "Login",
-        icon: <FiUser className="text-3xl mr-3" />,
-        path: "/login",
     },
     {
         name: "Settings",
@@ -113,6 +109,18 @@ const getNavigation = (route) => {
     );
 };
 export default function Sidebar() {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        if (localStorage.getItem("access_token")) setIsLoggedIn(true);
+    });
+
+    const handleLogout = () => {
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("email");
+        setIsLoggedIn(false);
+    };
+
     return (
         <nav className="flex flex-col justify-between h-[calc(70vh-3.5rem)]">
             <div className="pb-15 mr-12">
@@ -122,7 +130,30 @@ export default function Sidebar() {
                 {Routes.slice(0, 3).map((route, index) => getNavigation(route))}
             </div>
             <div className="flex flex-col border-t-2 pt-2">
-                {Routes.slice(3, 5).map((route, index) => getNavigation(route))}
+                {Routes.slice(3, 4).map((route, index) => getNavigation(route))}
+                {!isLoggedIn ? (
+                    <Button
+                        asChild
+                        className="py-6 px-2 my-1 align-left justify-start hover:bg-black hover:text-white cursor-pointer"
+                        variant="ghost"
+                    >
+                        <Link href="/login">
+                            <FiUser className="text-3xl mr-3" />
+                            <div className="text-lg">Login</div>
+                        </Link>
+                    </Button>
+                ) : (
+                    <Button
+                        asChild
+                        className="py-6 px-2 my-1 align-left justify-start hover:bg-black hover:text-white cursor-pointer"
+                        variant="ghost"
+                    >
+                        <div className="text-lg" onClick={handleLogout}>
+                            <FiUser className="text-3xl mr-3" />
+                            <div className="text-lg">Logout</div>
+                        </div>
+                    </Button>
+                )}
             </div>
         </nav>
     );

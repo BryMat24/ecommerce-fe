@@ -5,12 +5,11 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { apiClient } from "@/lib/axios";
 import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
 import Link from "next/link";
+import { FetchResponseHandler } from "@/utils/response-handler";
 
 export default function LoginPage() {
     const [userData, setUserData] = useState({});
-    const { toast } = useToast();
     const router = useRouter();
 
     const handleOnChange = (e) => {
@@ -23,14 +22,10 @@ export default function LoginPage() {
             const { data } = await apiClient.post("/login", userData);
             localStorage.setItem("access_token", data?.token);
             localStorage.setItem("email", data?.email);
-            toast({ title: "Login success!" });
+            //FetchResponseHandler.handleSuccess(data?.message);
             router.push("/explore");
         } catch (err) {
-            console.log(err);
-            toast({
-                title: "Login error!",
-                description: err?.response?.data?.message,
-            });
+            FetchResponseHandler.handleError(err);
         }
     };
 

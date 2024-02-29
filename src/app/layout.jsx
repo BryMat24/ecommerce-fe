@@ -1,7 +1,8 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
-import { Toaster } from "@/components/ui/toaster";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata = {
     title: "Tiko Online",
@@ -13,7 +14,7 @@ export default function RootLayout({ children }) {
         <html lang="en">
             <body className={inter.className + "flex flex-col h-[100vh]"}>
                 {children}
-                <Toaster />
+                <ToastContainer />
             </body>
         </html>
     );
