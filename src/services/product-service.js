@@ -5,9 +5,9 @@ class ProductService {
         this.httpClient = httpClient;
     }
 
-    async getProducts() {
+    async getProducts(params) {
         try {
-            const { data } = await this.httpClient.get("/product", false);
+            const { data } = await this.httpClient.get(`/product` + `${params ? params : ""}`, false);
             return data;
         } catch (err) {
             throw err;

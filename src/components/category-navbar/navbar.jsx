@@ -22,7 +22,9 @@ const getNavLinkes = (category, active, setActive) => {
         >
             <Link
                 href={
-                    category?.slug ? `/explore/${category?.slug}` : "/explore"
+                    category?.slug
+                        ? `/explore/category/${category?.slug}`
+                        : "/explore"
                 }
                 className=""
             >

@@ -7,26 +7,30 @@ import OfferImage from "@/../public/discount.webp";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { useEffect, useState } from "react";
 import productService from "@/services/product-service";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function CategoryDetailsPage({ params }) {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { toast } = useToast();
 
     useEffect(() => {
         const fetchData = async () => {
-            if (params.slug === "all") {
-                const { data } = await apiClient.get("/product", {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem(
-                            "access_token"
-                        )}`,
-                    },
-                });
+            try {
+                setLoading(true);
+                const data = await productService.getProducts(
+                    `?categorySlug=${params.slug}`
+                );
                 setProducts(data);
                 setLoading(false);
-                return;
+            } catch (err) {
+                toast({
+                    title: "Error!",
+                    description: err?.response?.data?.message,
+                });
             }
         };
+
         fetchData();
     }, []);
 
@@ -50,7 +54,7 @@ export default function CategoryDetailsPage({ params }) {
                 <div className="px-28 mt-12">
                     <h1 className="font-bold text-3xl mb-4">Our Products </h1>
                     <div className="flex gap-8 flex-wrap">
-                        {products.map((product, index) => (
+                        {products?.map((product, index) => (
                             <ProductCard product={product} key={index} />
                         ))}
                     </div>

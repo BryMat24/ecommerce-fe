@@ -7,10 +7,12 @@ import OfferImage from "@/../public/discount.webp";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { useEffect, useState } from "react";
 import productService from "@/services/product-service";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function ExplorePage() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { toast } = useToast();
 
     useEffect(() => {
         const fetchProducts = async () => {
