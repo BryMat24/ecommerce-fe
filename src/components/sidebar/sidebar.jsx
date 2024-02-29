@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import Link from "next/link";
 import "./style.css";
-import { AiOutlineHome } from "react-icons/ai";
+import { MdOutlineShoppingCart } from "react-icons/md";
 import { BiCategory } from "react-icons/bi";
 import { LuTruck } from "react-icons/lu";
 import { FiUser } from "react-icons/fi";
@@ -16,28 +16,28 @@ import { IoSettingsOutline } from "react-icons/io5";
 
 const Routes = [
     {
-        name: "Home",
-        icon: <AiOutlineHome className="text-2xl mr-4" />,
-        path: "/",
-    },
-    {
-        name: "Explore",
-        icon: <BiCategory className="text-2xl mr-4" />,
+        name: "Categories",
+        icon: <BiCategory className="text-3xl mr-3" />,
         path: "/explore",
     },
     {
+        name: "Cart",
+        icon: <MdOutlineShoppingCart className="text-3xl mr-3" />,
+        path: "/cart",
+    },
+    {
         name: "Order",
-        icon: <LuTruck className="text-2xl mr-4" />,
+        icon: <LuTruck className="text-3xl mr-3" />,
         path: "/order",
     },
     {
         name: "Login",
-        icon: <FiUser className="text-2xl mr-4" />,
+        icon: <FiUser className="text-3xl mr-3" />,
         path: "/login",
     },
     {
         name: "Settings",
-        icon: <IoSettingsOutline className="text-2xl mr-4" />,
+        icon: <IoSettingsOutline className="text-3xl mr-3" />,
         path: "/settings",
     },
 ];
@@ -65,7 +65,7 @@ const getCategoryNavigation = (categoryRoute) => {
     return (
         <Button
             asChild
-            className="py-1 px-2 ml-6 w-auto align-left justify-start bg-transparent text-xs text-primary hover:bg-transparent hover:text-red-500"
+            className="py-1 px-2 ml-6 w-auto align-left justify-start bg-transparent text-md text-primary hover:bg-transparent hover:text-red-500"
         >
             <Link href={categoryRoute.path} className="w-full">
                 <div className="w-full">{categoryRoute.name}</div>
@@ -74,7 +74,7 @@ const getCategoryNavigation = (categoryRoute) => {
     );
 };
 const getNavigation = (route) => {
-    return route.name == "Explore" ? (
+    return route.name == "Categories" ? (
         <Accordion type="single" collapsible className="w-full border-none">
             <AccordionItem value="item-1 w-full border-none">
                 <Button
@@ -88,7 +88,7 @@ const getNavigation = (route) => {
                             className="w-full flex flex-row"
                         >
                             {route.icon}
-                            <div className="">{route.name}</div>
+                            <div className="text-lg mr-2">{route.name}</div>
                         </Link>
                     </AccordionTrigger>
                 </Button>
@@ -105,14 +105,14 @@ const getNavigation = (route) => {
             className="py-6 px-2 my-1 align-left justify-start hover:bg-black hover:text-white"
             variant="ghost"
         >
-            <Link href={route.path} className="">
+            <Link href={route.path}>
                 {route.icon}
-                <div>{route.name}</div>
+                <div className="text-lg">{route.name}</div>
             </Link>
         </Button>
     );
 };
-export default function Navbar() {
+export default function Sidebar() {
     return (
         <nav className="flex flex-col justify-between h-[calc(70vh-3.5rem)]">
             <div className="pb-16 mr-12">
