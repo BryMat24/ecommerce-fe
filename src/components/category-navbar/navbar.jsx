@@ -3,25 +3,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { useContext } from "react";
 import { CategoryState } from "@/context/navbar-context";
-
-const categories = [
-    {
-        name: "All",
-        slug: "all",
-    },
-    {
-        name: "Laptop",
-        slug: "laptop",
-    },
-    {
-        name: "Mobile",
-        slug: "mobile",
-    },
-    {
-        name: "Tablet",
-        slug: "tablet",
-    },
-];
+import categoryService from "@/services/category-service";
+import { useEffect } from "react";
 
 const getNavLinkes = (category, active, setActive) => {
     const hoverStyle =
@@ -37,7 +20,12 @@ const getNavLinkes = (category, active, setActive) => {
             }
             onClick={() => setActive(category.slug)}
         >
-            <Link href={"./" + category.slug} className="">
+            <Link
+                href={
+                    category?.slug ? `/explore/${category?.slug}` : "/explore"
+                }
+                className=""
+            >
                 <div>{category.name}</div>
             </Link>
         </Button>
@@ -45,12 +33,31 @@ const getNavLinkes = (category, active, setActive) => {
 };
 export default function CategoryNavbar() {
     const { active, setActive } = useContext(CategoryState);
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const data = await categoryService.getCategories();
+                data.unshift({ name: "all" });
+
+                setCategories(data);
+            } catch (err) {
+                toast({
+                    title: "Fetch error!",
+                    description: err?.response?.data?.message,
+                });
+            }
+        };
+
+        fetchCategories();
+    }, []);
 
     return (
         <nav className="flex w-full p-0 pt-4 justify-center">
             <div className="flex w-1/2 justify-center">
-                {categories.map((category) => (
-                    <div key={category.slug}>
+                {categories.map((category, index) => (
+                    <div key={index}>
                         {getNavLinkes(category, active, setActive)}
                     </div>
                 ))}

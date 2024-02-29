@@ -30,8 +30,6 @@ export default function ExplorePage() {
         fetchProducts();
     }, []);
 
-    console.log(products);
-
     return (
         <div className="w-full py-8">
             <div className="w-full flex justify-center px-28 gap-5">

@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function SearchBar() {
     return (
-        <div className="w-full flex items-center justify-center relative pt-3">
+        <div className="w-full flex items-center justify-center relative pt-5">
             <Link href="/explore">
                 <div className="w-64 text-center font-bold absolute left-2">
                     LOGO
