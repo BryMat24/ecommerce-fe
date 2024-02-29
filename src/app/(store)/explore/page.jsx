@@ -33,10 +33,10 @@ export default function ExplorePage() {
 
     return (
         <div className="w-full py-8">
-            <div className="w-full flex justify-between px-14">
+            <div className="w-full flex justify-center px-28 gap-5">
                 <OfferCarousel />
-                <div className="h-64 w-64 rounded-lg border-2">
-                    <AspectRatio ratio={1 / 1} className="">
+                <div className="h-72 w-2/5 rounded-lg border-2">
+                    <AspectRatio ratio={1 / 1} className="h-72 border-2">
                         <Image
                             src={OfferImage}
                             alt="Photo by Drew Beamer"

@@ -11,13 +11,16 @@ import {
 
 export default function OfferCarousel() {
     return (
-        <Carousel className="w-3/5" opts={{ loop: true }}>
+        <Carousel
+            className="flex-grow border-black border-2"
+            opts={{ loop: true }}
+        >
             <CarouselContent>
                 {Array.from({ length: 5 }).map((_, index) => (
                     <CarouselItem key={index}>
-                        <div className="pr-8">
-                            <Card className="">
-                                <CardContent className="flex h-64 items-center justify-center p-6">
+                        <div>
+                            <Card>
+                                <CardContent className="flex h-72 items-center justify-center p-6">
                                     <span className="text-4xl font-semibold">
                                         {index + 1}
                                     </span>

@@ -115,7 +115,7 @@ const getNavigation = (route) => {
 export default function Sidebar() {
     return (
         <nav className="flex flex-col justify-between h-[calc(70vh-3.5rem)]">
-            <div className="pb-16 mr-12">
+            <div className="pb-15 mr-12">
                 <h1 className="text-3xl font-bold">Explore</h1>
             </div>
             <div className="flex flex-col pb-16">
