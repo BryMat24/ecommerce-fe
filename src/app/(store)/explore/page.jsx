@@ -1,35 +1,36 @@
 "use client";
 
 import OfferCarousel from "@/components/explore/carousel";
-import { TopProducts } from "@/components/explore/top-products";
+import ProductCard from "@/components/product-card/product-card";
 import Image from "next/image";
-import Link from "next/link";
 import OfferImage from "@/../public/discount.webp";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { apiClient } from "@/lib/axios";
 import { useEffect, useState } from "react";
+import productService from "@/services/product-service";
 
 export default function ExplorePage() {
-    const [topProducts, setTopProducts] = useState([]);
+    const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+
     useEffect(() => {
-        const fetchTopProducts = async () => {
+        const fetchProducts = async () => {
             try {
-                const { data } = await apiClient.get("/product", {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem(
-                            "access_token"
-                        )}`,
-                    },
-                });
-                setTopProducts(data.slice(0, 4));
+                setLoading(true);
+                const data = await productService.getProducts();
+                setProducts(data);
                 setLoading(false);
             } catch (err) {
-                console.log(err);
+                toast({
+                    title: "Error!",
+                    description: err?.response?.data?.message,
+                });
             }
         };
-        fetchTopProducts();
+
+        fetchProducts();
     }, []);
+
+    console.log(products);
 
     return (
         <div className="w-full py-8">
@@ -48,17 +49,13 @@ export default function ExplorePage() {
             </div>
 
             {!loading && (
-                <div className="px-14 mt-6">
-                    <h1 className="font-bold text-2xl mb-4  ">
-                        Top Products{" "}
-                        <Link
-                            className="text-sm font-normal ml-2 hover:underline"
-                            href="/explore/category/all"
-                        >
-                            view all
-                        </Link>{" "}
-                    </h1>
-                    <TopProducts products={topProducts} />
+                <div className="px-28 mt-12">
+                    <h1 className="font-bold text-3xl mb-4">Our Products </h1>
+                    <div className="flex gap-8 flex-wrap">
+                        {products.map((product, index) => (
+                            <ProductCard product={product} key={index} />
+                        ))}
+                    </div>
                 </div>
             )}
         </div>

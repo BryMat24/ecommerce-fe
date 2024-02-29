@@ -5,11 +5,13 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { FetchResponseHandler } from "@/utils/response-handler";
+import { useToast } from "@/components/ui/use-toast";
+import authService from "@/services/auth-service";
 
 export default function LoginPage() {
     const [userData, setUserData] = useState({});
     const router = useRouter();
+    const { toast } = useToast();
 
     const handleOnChange = (e) => {
         setUserData({ ...userData, [e.target.name]: e.target.value });
