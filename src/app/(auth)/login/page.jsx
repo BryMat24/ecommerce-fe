@@ -3,15 +3,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { apiClient } from "@/lib/axios";
 import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
 import Link from "next/link";
+import { useToast } from "@/components/ui/use-toast";
+import authService from "@/services/auth-service";
 
 export default function LoginPage() {
     const [userData, setUserData] = useState({});
-    const { toast } = useToast();
     const router = useRouter();
+    const { toast } = useToast();
 
     const handleOnChange = (e) => {
         setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -20,13 +20,10 @@ export default function LoginPage() {
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
-            const { data } = await apiClient.post("/login", userData);
-            localStorage.setItem("access_token", data?.token);
-            localStorage.setItem("email", data?.email);
-            toast({ title: "Login success!" });
+            const data = authService.login(userData);
+            toast({ title: "Login success!", message: data?.message });
             router.push("/explore");
         } catch (err) {
-            console.log(err);
             toast({
                 title: "Login error!",
                 description: err?.response?.data?.message,

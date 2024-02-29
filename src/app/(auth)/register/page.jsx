@@ -1,15 +1,12 @@
 "use client";
 import { useState } from "react";
-import { apiClient } from "@/lib/axios";
 import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
 const Register = () => {
     const [userData, setUserData] = useState({});
-    const { toast } = useToast();
     const router = useRouter();
 
     const handleOnChange = (e) => {
@@ -19,12 +16,12 @@ const Register = () => {
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
-            await apiClient.post("/register", userData);
-            toast({ title: "Register success!" });
+            const data = authService.register(userData);
+            toast({ title: "Login success!", message: data?.message });
             router.push("/login");
         } catch (err) {
             toast({
-                title: "Register error!",
+                title: "Login error!",
                 description: err?.response?.data?.message,
             });
         }
