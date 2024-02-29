@@ -88,10 +88,16 @@ const getNavigation = (route) => {
                         </Link>
                     </AccordionTrigger>
                 </Button>
-                <AccordionContent className="w-full flex flex-col border-none">
-                    {CategoryRoutes.map((categoryRoute) =>
-                        getCategoryNavigation(categoryRoute)
-                    )}
+                <AccordionContent
+                    key={route.name}
+                    className="w-full flex flex-col border-none"
+                >
+                    {CategoryRoutes.map((categoryRoute, index) => (
+                        <div key={index}>
+                            {" "}
+                            {getCategoryNavigation(categoryRoute)}
+                        </div>
+                    ))}
                 </AccordionContent>
             </AccordionItem>
         </Accordion>
@@ -127,10 +133,14 @@ export default function Sidebar() {
                 <h1 className="text-3xl font-bold">Explore</h1>
             </div>
             <div className="flex flex-col pb-16">
-                {Routes.slice(0, 3).map((route, index) => getNavigation(route))}
+                {Routes.slice(0, 3).map((route, index) => (
+                    <div key={index}>{getNavigation(route)}</div>
+                ))}
             </div>
             <div className="flex flex-col border-t-2 pt-2">
-                {Routes.slice(3, 4).map((route, index) => getNavigation(route))}
+                {Routes.slice(3, 4).map((route, index) => (
+                    <div key={index}>{getNavigation(route)}</div>
+                ))}
                 {!isLoggedIn ? (
                     <Button
                         asChild

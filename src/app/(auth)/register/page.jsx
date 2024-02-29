@@ -1,8 +1,6 @@
 "use client";
 import { useState } from "react";
-import { apiClient } from "@/lib/axios";
 import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -19,7 +17,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
-            const { data } = await apiClient.post("/register", userData);
+
             FetchResponseHandler.handleSuccess(data?.message);
             router.push("/login");
         } catch (err) {

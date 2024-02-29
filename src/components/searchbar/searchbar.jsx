@@ -17,7 +17,6 @@ export default function SearchBar() {
             <Button
                 className="w-12 h-12 ml-2 flex items-center justify-center rounded-full"
                 variant="ghost"
-                aschild
             >
                 <Link
                     href="/cart"

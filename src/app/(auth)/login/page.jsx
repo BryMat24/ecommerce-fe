@@ -3,7 +3,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { apiClient } from "@/lib/axios";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FetchResponseHandler } from "@/utils/response-handler";
@@ -19,13 +18,14 @@ export default function LoginPage() {
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
-            const { data } = await apiClient.post("/login", userData);
-            localStorage.setItem("access_token", data?.token);
-            localStorage.setItem("email", data?.email);
-            //FetchResponseHandler.handleSuccess(data?.message);
+            const { data } = authService.login(userData);
             router.push("/explore");
+            toast({ title: "Login success!", message: data?.message });
         } catch (err) {
-            FetchResponseHandler.handleError(err);
+            toast({
+                title: "Login error!",
+                description: err?.response?.data?.message,
+            });
         }
     };
 
