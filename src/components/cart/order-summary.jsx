@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button"
+import Link from "next/link";
 import { useEffect, useState } from "react";
 export default function OrderSummary({products}){
     const [total, setTotal] = useState(0);
@@ -28,7 +29,10 @@ export default function OrderSummary({products}){
                     <div className="font-bold">S${total.toFixed(2)}</div>
                 </div>
             </div>
-            <Button className="w-full mt-12 mb-4">Checkout</Button>
+            <Link href="cart/checkout">
+                <Button className="w-full mt-12 mb-4">Checkout</Button>
+            </Link>
+            
         </div>
     )
 }

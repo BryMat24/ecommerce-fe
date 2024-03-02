@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function ProductCard({ product }) {
     console.log(product.imageUrl);
     return (
-        <Link href={`/product/${product?.id}`} className="mb-8 border-none">
+        <Link href={`/product/${product?.id}`} className="mb-8 border-none hover:translate-y-[-0.75rem] transition-all duration-300">
             <Card className="w-[20rem] h-[26rem] border-none shadow-2xl rounded-lg">
                 <CardHeader className="p-0 rounded-md">
                     <img
