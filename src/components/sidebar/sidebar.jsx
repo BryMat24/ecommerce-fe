@@ -41,10 +41,10 @@ const getCategoryNavigation = (category) => {
             className="py-1 px-2 ml-6 w-auto align-left justify-start bg-transparent text-md text-primary hover:bg-transparent hover:text-red-500"
         >
             <Link
-                href={`/explore/category/${category.name}`}
+                href={`/explore/category/${category.slug}`}
                 className="w-full"
             >
-                <div className="w-full">{category.name.charAt(0).toUpperCase() + category.name.slice(1, category.length)}</div>
+                <div className="w-full">{category.name}</div>
             </Link>
         </Button>
     );

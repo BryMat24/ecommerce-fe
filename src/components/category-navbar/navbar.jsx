@@ -16,19 +16,19 @@ const getNavLinkes = (category, active, setActive) => {
             className={
                 "py-0 px-0 align-left justify-center w-20 mx-2 text-md bg-transparent text-black rounded-none border-primary" +
                 hoverStyle +
-                (active == category.name ? activeStyle : "")
+                (active == category.slug ? activeStyle : "")
             }
-            onClick={() => setActive(category.name)}
+            onClick={() => setActive(category.slug)}
         >
             <Link
                 href={
-                    category?.name !== "all"
-                        ? `/explore/category/${category?.name}`
+                    category?.slug
+                        ? `/explore/category/${category?.slug}`
                         : "/explore"
                 }
                 className=""
             >
-                <div>{category.name.charAt(0).toUpperCase() + category.name.slice(1, category.length)}</div>
+                <div>{category.name}</div>
             </Link>
         </Button>
     );
@@ -42,14 +42,13 @@ export default function CategoryNavbar() {
             try {
                 const data = await categoryService.getCategories();
                 data.unshift({ name: "all" });
+
                 setCategories(data);
             } catch (err) {
                 toast({
                     title: "Fetch error!",
                     description: err?.response?.data?.message,
                 });
-            } finally {
-                console.log(categories)
             }
         };
 
