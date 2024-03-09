@@ -12,7 +12,6 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import { BiCategory } from "react-icons/bi";
 import { LuTruck } from "react-icons/lu";
 import { FiUser } from "react-icons/fi";
-import { IoSettingsOutline } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import categoryService from "@/services/category-service";
 
@@ -26,11 +25,6 @@ const Routes = [
         name: "Order",
         icon: <LuTruck className="text-3xl mr-3" />,
         path: "/order",
-    },
-    {
-        name: "Settings",
-        icon: <IoSettingsOutline className="text-3xl mr-3" />,
-        path: "/settings",
     },
 ];
 
@@ -93,10 +87,12 @@ export default function Sidebar() {
     };
 
     return (
-        <nav className="flex flex-col justify-between h-[calc(70vh-3.5rem)]">
-            <div className="pb-15 mr-12">
-                <h1 className="text-3xl font-bold">Explore</h1>
-            </div>
+        <nav className="flex flex-col justify-between h-[calc(70vh-3.5rem)] pt-6 pr-5">
+            <Link href="/explore">
+                <div className="pb-15 mr-12">
+                    <h1 className="text-3xl font-bold">KJK'S</h1>
+                </div>
+            </Link>
             <div className="flex flex-col pb-16">
                 <Accordion
                     type="single"

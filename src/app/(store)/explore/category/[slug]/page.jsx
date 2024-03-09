@@ -1,6 +1,6 @@
 "use client";
 import { apiClient } from "@/lib/axios";
-import OfferCarousel from "@/components/explore/carousel";
+import OfferCarousel from "@/components/carousel/carousel";
 import ProductCard from "@/components/product-card/product-card";
 import Image from "next/image";
 import OfferImage from "@/../public/discount.webp";

@@ -20,13 +20,14 @@ export default function LoginPage() {
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
-            const data = authService.login(userData);
+            const data = await authService.login(userData);
             toast({ title: "Login success!", message: data?.message });
             router.push("/explore");
         } catch (err) {
+            console.log(err);
             toast({
                 title: "Login error!",
-                description: err?.response?.data?.message,
+                description: "Invalid email/password",
             });
         }
     };

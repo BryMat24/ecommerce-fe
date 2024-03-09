@@ -1,6 +1,6 @@
 "use client";
 
-import OfferCarousel from "@/components/explore/carousel";
+import OfferCarousel from "@/components/carousel/carousel";
 import ProductCard from "@/components/product-card/product-card";
 import Image from "next/image";
 import OfferImage from "@/../public/discount.webp";
@@ -8,6 +8,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { useEffect, useState } from "react";
 import productService from "@/services/product-service";
 import { useToast } from "@/components/ui/use-toast";
+import SearchBar from "@/components/searchbar/searchbar";
 
 export default function ExplorePage() {
     const [products, setProducts] = useState([]);
@@ -33,7 +34,11 @@ export default function ExplorePage() {
     }, []);
 
     return (
-        <div className="w-full py-8">
+        <div className="w-full">
+            <div className="px-28">
+                <SearchBar />
+            </div>
+
             <div className="w-full flex justify-center px-28 gap-5">
                 <OfferCarousel />
                 <div className="h-72 w-2/5 rounded-lg border-2">
