@@ -1,43 +1,66 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
+import "./carousel.css";
 
-import { Card, CardContent } from "@/components/ui/card";
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
-} from "@/components/ui/carousel";
+const Carousel = ({ children }) => {
+    const [counter, setCounter] = useState(1);
+    const [pause, setPause] = useState(false);
+    const content = children;
 
-export default function OfferCarousel() {
-    const carouselContent = [
-        {
-            url: "https://cdn.thewirecutter.com/wp-content/media/2023/06/businesslaptops-2048px-0943.jpg?auto=webp&quality=75&width=1024",
-        },
-        {
-            url: "https://www.cnet.com/a/img/resize/0302d07e10ba8dc211f7b4e25891ad46dda31976/hub/2023/02/05/f52fdc98-dafc-4d05-b20e-8bd936b49a53/oneplus-11-review-cnet-lanxon-promo-8.jpg?auto=webp&fit=crop&height=675&width=1200",
-        },
-    ];
+    const handleNext = () => {
+        if (counter !== content.length) {
+            setCounter(counter + 1);
+        } else {
+            setCounter(1);
+        }
+    };
+
+    const handlePre = () => {
+        if (counter !== 1) {
+            setCounter(counter - 1);
+        } else {
+            setCounter(content.length);
+        }
+    };
+
+    const handlePage = (page) => {
+        setCounter(page);
+    };
+
+    const handleMouse = () => {
+        setPause(!pause);
+    };
+
+    useEffect(() => {
+        let interval = setInterval(() => {
+            if (!pause) {
+                handleNext();
+            } else {
+                clearInterval(interval);
+            }
+        }, 5000);
+        return () => clearInterval(interval);
+    });
 
     return (
-        <Carousel className="flex-grow" opts={{ loop: true }}>
-            <CarouselContent>
-                {carouselContent.map((el, index) => (
-                    <CarouselItem key={index} className="w-[350px]">
-                        <div>
-                            <Card>
-                                <CardContent className="flex h-72 items-center justify-center p-0 ">
-                                    <img
-                                        src={el.url}
-                                        key={index}
-                                        className="object-contain"
-                                    />
-                                </CardContent>
-                            </Card>
-                        </div>
-                    </CarouselItem>
+        <div className="App">
+            <div
+                className="slide"
+                onMouseEnter={handleMouse}
+                onMouseLeave={handleMouse}
+            >
+                {content.map((item, index) => (
+                    <div
+                        className={
+                            counter - 1 === index ? "show w-full" : "not-show"
+                        }
+                        key={index}
+                    >
+                        {item}
+                    </div>
                 ))}
-            </CarouselContent>
-        </Carousel>
+            </div>
+        </div>
     );
-}
+};
+
+export default Carousel;

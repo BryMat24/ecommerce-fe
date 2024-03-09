@@ -1,14 +1,10 @@
 "use client";
 
-import OfferCarousel from "@/components/carousel/carousel";
+import Carousel from "@/components/carousel/carousel";
 import ProductCard from "@/components/product-card/product-card";
-import Image from "next/image";
-import OfferImage from "@/../public/discount.webp";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { useEffect, useState } from "react";
 import productService from "@/services/product-service";
 import { useToast } from "@/components/ui/use-toast";
-import SearchBar from "@/components/searchbar/searchbar";
 
 export default function ExplorePage() {
     const [products, setProducts] = useState([]);
@@ -35,23 +31,29 @@ export default function ExplorePage() {
 
     return (
         <div className="w-full">
-            <div className="px-28">
-                <SearchBar />
-            </div>
-
-            <div className="w-full flex justify-center px-28 gap-5">
-                <OfferCarousel />
-                <div className="h-72 w-2/5 rounded-lg border-2">
-                    <AspectRatio ratio={1 / 1} className="h-72 border-2">
-                        <Image
-                            src={OfferImage}
-                            alt="Photo by Drew Beamer"
-                            fill
-                            className="object-cover"
-                        />
-                    </AspectRatio>
+            <Carousel>
+                <div>
+                    <img
+                        src="https://images.unsplash.com/photo-1580974928064-f0aeef70895a?q=80&w=3174&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="img1"
+                        className="object-cover"
+                    />
                 </div>
-            </div>
+                <div>
+                    <img
+                        src="https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?q=80&w=2976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="img2"
+                        className="object-cover"
+                    />
+                </div>
+                <div>
+                    <img
+                        src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?q=80&w=2965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="img3"
+                        className="object-cover"
+                    />
+                </div>
+            </Carousel>
 
             {!loading && (
                 <div className="px-28 mt-12">
