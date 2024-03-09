@@ -7,7 +7,6 @@ import {
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuLabel,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { MdOutlineShoppingCart } from "react-icons/md";
@@ -29,17 +28,24 @@ const Navbar = () => {
     return (
         <div className=" bg-white h-[60px] rounded-b-lg flex items-center px-8 justify-between">
             <div className="font-bold text-lg relative">
-                <p>Dope</p>
+                <Link href="/explore">
+                    <p>Dope</p>
+                </Link>
+
                 <div className="rounded-full border-2 border-[#df5f4f] w-[7px] h-[7px] absolute top-[6px] right-[-8px]"></div>
             </div>
             <div className="flex items-center gap-3">
-                <div className="w-[40px] h-[40px] border-2 rounded-full flex justify-center items-center">
-                    <MdOutlineShoppingCart className="w-[20px] h-[20px] cursor-pointer" />
-                </div>
+                <Link href="/cart">
+                    <div className="w-[40px] h-[40px] border-2 rounded-full flex justify-center items-center">
+                        <MdOutlineShoppingCart className="w-[20px] h-[20px] cursor-pointer" />
+                    </div>
+                </Link>
 
-                <div className="w-[40px] h-[40px] border-2 rounded-full flex justify-center items-center">
-                    <MdHistory className="w-[20px] h-[20px] cursor-pointer" />
-                </div>
+                <Link href="/order">
+                    <div className="w-[40px] h-[40px] border-2 rounded-full flex justify-center items-center">
+                        <MdHistory className="w-[20px] h-[20px] cursor-pointer" />
+                    </div>
+                </Link>
 
                 {isLoggedIn ? (
                     <DropdownMenu>

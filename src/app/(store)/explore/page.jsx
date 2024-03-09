@@ -7,17 +7,36 @@ import productService from "@/services/product-service";
 import { useToast } from "@/components/ui/use-toast";
 import Navbar from "@/components/navbar/navbar";
 import SearchBar from "@/components/searchbar/searchbar";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { IoFilter } from "react-icons/io5";
+import categoryService from "@/services/category-service";
+import { carouselContent } from "@/data/carousel-content";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import Footer from "@/components/footer/footer";
 
 export default function ExplorePage() {
     const [products, setProducts] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
     const { toast } = useToast();
+    const searchParams = useSearchParams();
+    const categoryParam = searchParams.get("category");
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
                 setLoading(true);
-                const data = await productService.getProducts();
+                const data = await productService.getProducts(
+                    categoryParam ? `?categorySlug=${categoryParam}` : null
+                );
                 setProducts(data);
                 setLoading(false);
             } catch (err) {
@@ -28,20 +47,23 @@ export default function ExplorePage() {
             }
         };
 
-        fetchProducts();
-    }, []);
+        const fetchCategories = async () => {
+            try {
+                setLoading(true);
+                const data = await categoryService.getCategories();
+                setCategories(data);
+                setLoading(false);
+            } catch (err) {
+                toast({
+                    title: "Error!",
+                    description: err?.response?.data?.message,
+                });
+            }
+        };
 
-    const carouselContent = [
-        {
-            url: "https://images.unsplash.com/photo-1580974928064-f0aeef70895a?q=80&w=3174&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        },
-        {
-            url: "https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?q=80&w=2976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        },
-        {
-            url: "https://images.unsplash.com/photo-1546435770-a3e426bf472b?q=80&w=2965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        },
-    ];
+        fetchProducts();
+        fetchCategories();
+    }, [categoryParam]);
 
     return (
         <div className="w-full">
@@ -69,12 +91,41 @@ export default function ExplorePage() {
 
             {!loading && (
                 <div className="relative">
-                    <div className="px-8 absolute top-[-70px] left-1/2 transform -translate-x-1/2 bg-white w-[90%] rounded-t-lg">
+                    <div className="px-8 absolute top-[-70px] left-1/2 transform -translate-x-1/2 bg-white w-[90%] rounded-t-lg pb-12 ">
                         <div className="flex justify-between w-full">
                             <h1 className="font-bold text-3xl mb-4 mt-5">
                                 Give All You Need
                             </h1>
-                            <SearchBar />
+                            <div className="flex gap-2">
+                                <SearchBar />
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger className="hover:bg-transparent">
+                                        <IoFilter />
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent>
+                                        <DropdownMenuLabel>
+                                            Filter Categories
+                                        </DropdownMenuLabel>
+                                        <DropdownMenuSeparator />
+                                        <Link href="/explore">
+                                            <DropdownMenuItem>
+                                                All
+                                            </DropdownMenuItem>
+                                        </Link>
+
+                                        {categories.map((el, index) => (
+                                            <Link
+                                                href={`explore?category=${el?.slug}`}
+                                                key={index}
+                                            >
+                                                <DropdownMenuItem>
+                                                    {el.name}
+                                                </DropdownMenuItem>
+                                            </Link>
+                                        ))}
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            </div>
                         </div>
 
                         <div className="flex gap-8 flex-wrap mt-12">
@@ -82,6 +133,8 @@ export default function ExplorePage() {
                                 <ProductCard product={product} key={index} />
                             ))}
                         </div>
+
+                        <Footer />
                     </div>
                 </div>
             )}

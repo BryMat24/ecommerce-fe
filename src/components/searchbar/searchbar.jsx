@@ -66,9 +66,12 @@ export default function SearchBar() {
                     </div>
                 ) : (
                     <div>
-                        {relatedSearch.map((product) => {
+                        {relatedSearch.map((product, index) => {
                             return (
-                                <div className="pl-4 my-2 hover:bg-muted transition-all">
+                                <div
+                                    className="pl-4 my-2 hover:bg-muted transition-all"
+                                    key={index}
+                                >
                                     <Link
                                         href={`/product/${product.id}`}
                                         className="flex w-full"

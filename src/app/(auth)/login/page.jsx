@@ -24,7 +24,6 @@ export default function LoginPage() {
             toast({ title: "Login success!", message: data?.message });
             router.push("/explore");
         } catch (err) {
-            console.log(err);
             toast({
                 title: "Login error!",
                 description: "Invalid email/password",
