@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import productService from "@/services/product-service";
 import { useToast } from "@/components/ui/use-toast";
 import Navbar from "@/components/navbar/navbar";
+import SearchBar from "@/components/searchbar/searchbar";
 
 export default function ExplorePage() {
     const [products, setProducts] = useState([]);
@@ -67,12 +68,20 @@ export default function ExplorePage() {
             </div>
 
             {!loading && (
-                <div className="px-28 mt-12">
-                    <h1 className="font-bold text-3xl mb-4">Our Products </h1>
-                    <div className="flex gap-8 flex-wrap">
-                        {products.map((product, index) => (
-                            <ProductCard product={product} key={index} />
-                        ))}
+                <div className="relative">
+                    <div className="px-8 absolute top-[-70px] left-1/2 transform -translate-x-1/2 bg-white w-[90%] rounded-t-lg">
+                        <div className="flex justify-between w-full">
+                            <h1 className="font-bold text-3xl mb-4 mt-5">
+                                Give All You Need
+                            </h1>
+                            <SearchBar />
+                        </div>
+
+                        <div className="flex gap-8 flex-wrap mt-12">
+                            {products.map((product, index) => (
+                                <ProductCard product={product} key={index} />
+                            ))}
+                        </div>
                     </div>
                 </div>
             )}

@@ -1,7 +1,5 @@
 "use client";
 import { Input } from "@/components/ui/input";
-import { GrCart } from "react-icons/gr";
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 import productService from "@/services/product-service";
@@ -47,16 +45,18 @@ export default function SearchBar() {
     };
 
     return (
-        <div className="flex py-5">
+        <div className="flex py-5 w-[300px]">
             <Input
-                className="w-3/5 active:border-0"
+                className="border-none rounded-none outline-none focus:ring-0 focus:ring-offset-0"
                 placeholder="Search for products"
                 onFocus={() => setShowPanel(true)}
                 onBlur={waitAndHide}
                 onChange={(e) => filterProducts(e.target.value)}
+                style={{ borderBottom: "1px solid #000" }}
             />
+
             <div
-                className={`absolute w-2/5 z-10 top-[4rem] border-[1px] rounded-lg border-collapse bg-primary-foreground ${
+                className={`absolute w-[300px] z-10 top-[4rem] border-[1px] rounded-lg border-collapse bg-primary-foreground mt-1 ${
                     showPanel ? "" : "hidden"
                 }`}
             >
@@ -85,17 +85,6 @@ export default function SearchBar() {
                     </div>
                 )}
             </div>
-            <Button
-                className="w-12 h-12 ml-2 flex items-center justify-center rounded-full"
-                variant="ghost"
-            >
-                <Link
-                    href="/cart"
-                    className="w-full h-full flex items-center justify-center"
-                >
-                    <GrCart />
-                </Link>
-            </Button>
         </div>
     );
 }
