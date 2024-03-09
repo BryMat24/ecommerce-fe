@@ -2,61 +2,35 @@
 
 import { useEffect, useState } from "react";
 import OrderSummary from "@/components/cart/order-summary";
-import CartSummary from "@/components/cart/cart-summary";
-import { apiClient } from "@/lib/axios";
+import cartService from "@/services/cart-service";
+import { useToast } from "@/components/ui/use-toast";
+import { Button } from "@/components/ui/button";
 
 export default function CartPage() {
     const [cart, setCart] = useState([]);
     const [loading, setLoading] = useState(true);
-
-    const resetState = () => {
-        setCart([]);
-        setLoading(true);
-    };
-
-    // convert the obtained productId and quantity to the actual product details
-    const convertCart = async (rawCart) => {
-        resetState();
-        await rawCart.forEach(async (item) => {
-            await apiClient
-                .get(`/product/${item.productId}`, {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem(
-                            "access_token"
-                        )}`,
-                    },
-                })
-                .then((data) =>
-                    setCart((prev) => [
-                        ...prev,
-                        { product: data.data, quantity: item.quantity },
-                    ])
-                );
-        });
-        return cart;
-    };
-
-    // fetch cart to get the list of products (productId) and its corresponding quantity
-    const fetchCart = async () => {
-        resetState();
-        await apiClient
-            .get("/cart", {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem(
-                        "access_token"
-                    )}`,
-                },
-            })
-            .then(async (data) => await convertCart(data.data))
-            .then(() => setLoading(false));
-    };
+    const { toast } = useToast();
 
     useEffect(() => {
+        const fetchCart = async () => {
+            try {
+                setLoading(true);
+                const data = await cartService.getCarts();
+                setCart(data);
+                setLoading(false);
+            } catch (err) {
+                toast({
+                    title: "Error!",
+                    description: err?.response?.data?.message,
+                });
+            }
+        };
+
         fetchCart();
     }, []);
 
     return loading ? (
-        <></>
+        <>Loading</>
     ) : (
         <div className="w-full py-12 px-12">
             <h1 className="font-bold text-3xl mb-2">Cart</h1>
@@ -65,10 +39,67 @@ export default function CartPage() {
             ) : (
                 <div className="w-full flex flex-row">
                     <div className="w-2/3">
-                        <CartSummary
-                            cart={cart}
-                            fetchCart={fetchCart}
-                        ></CartSummary>
+                        <div className="w-full h-full">
+                            {cart?.map((item, index) => (
+                                <div
+                                    className="w-[calc(100%-4rem)] flex flex-row mb-6"
+                                    key={index}
+                                >
+                                    <div className="w-48 h-48 bg-[#F2F2F2] text-primary-foreground flex items-center justify-center">
+                                        <img
+                                            src={item?.product?.imageUrl}
+                                            alt="image"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col px-4 w-[calc(100%-12rem)]">
+                                        <div className="text-xl font-bold my-1">
+                                            {item?.product?.name}
+                                        </div>
+                                        <div className="text-sm text-muted-foreground mb-1">
+                                            Details:{" "}
+                                            {item?.product?.description}
+                                        </div>
+                                        <div className="text-sm text-muted-foreground mb-1">
+                                            Quantity: {item?.quantity}
+                                        </div>
+                                        <div className="text-xl text-right flex justify-between mt-8">
+                                            <div>
+                                                <Button
+                                                    variant="ghost"
+                                                    className="h-12 w-12 rounded-full text-xl"
+                                                    onClick={() => {
+                                                        removeItem(
+                                                            item.product.id,
+                                                            "decrement"
+                                                        );
+                                                    }}
+                                                >
+                                                    -
+                                                </Button>
+                                                <Button
+                                                    variant="ghost"
+                                                    className="h-12 w-12 rounded-full text-xl"
+                                                    onClick={() => {
+                                                        removeItem(
+                                                            item.product.id,
+                                                            "increment"
+                                                        );
+                                                    }}
+                                                >
+                                                    +
+                                                </Button>
+                                            </div>
+
+                                            <div className="font-bold">
+                                                S$
+                                                {item.product.price *
+                                                    item.quantity}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                     <div className="w-1/3">
                         <OrderSummary products={cart}></OrderSummary>
