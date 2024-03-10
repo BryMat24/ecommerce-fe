@@ -6,6 +6,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import convertDollar from "@/utils/format-currency";
 import capitalizeFirstLetter from "@/utils/capitalize";
+import Swal from "sweetalert2";
 
 export default function CartPage() {
     const [cart, setCart] = useState([]);
@@ -99,9 +100,19 @@ export default function CartPage() {
                                     </p>
                                     <p
                                         className="text-red-400 cursor-pointer text-sm mt-2"
-                                        onClick={() =>
-                                            handleRemoveItem(el?.product?.id)
-                                        }
+                                        onClick={() => {
+                                            Swal.fire({
+                                                title: `Do you want to remove this item from cart?`,
+                                                showCancelButton: true,
+                                                confirmButtonText: "Delete",
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    handleRemoveItem(
+                                                        el?.product?.id
+                                                    );
+                                                }
+                                            });
+                                        }}
                                     >
                                         Remove
                                     </p>
