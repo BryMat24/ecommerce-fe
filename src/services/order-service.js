@@ -35,6 +35,15 @@ class OrderService {
         }
     }
 
+    async getOrderDetail(orderId) {
+        try {
+            const { data } = await this.httpClient.get(`/order/${orderId}`, true);
+            return data;
+        } catch (err) {
+            throw err;
+        }
+    }
+
     async createOrders(sessionId) {
         try {
             await this.httpClient.post("/order", sessionId, true);
