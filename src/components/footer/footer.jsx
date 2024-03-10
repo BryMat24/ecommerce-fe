@@ -31,10 +31,10 @@ const Footer = () => {
                 <div>
                     <p className="text-center">Connect With Us</p>
                     <div className="flex gap-5 items-center mt-3">
-                        <ImFacebook2 className="w-[35px] h-[35px]" />
-                        <FaSquareXTwitter className="w-[40px] h-[40px]" />
-                        <FaInstagramSquare className="w-[40px] h-[40px]" />
-                        <FaLinkedin className="w-[40px] h-[40px]" />
+                        <ImFacebook2 className="w-[25px] h-[25px]" />
+                        <FaSquareXTwitter className="w-[30px] h-[30px]" />
+                        <FaInstagramSquare className="w-[30px] h-[30px]" />
+                        <FaLinkedin className="w-[30px] h-[30px]" />
                     </div>
                 </div>
             </div>
