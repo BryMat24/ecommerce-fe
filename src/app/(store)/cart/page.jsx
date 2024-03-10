@@ -30,13 +30,31 @@ export default function CartPage() {
         }
     };
 
-    const updateCartQuantity = async (updateStatus) => {
+    const updateCartQuantity = async (productId, updateStatus) => {
         try {
             setLoading(true);
             await cartService.updateQuantityCart(productId, updateStatus);
+            await fetchCart();
             setLoading(false);
             toast({
                 title: "Cart quantity updated!",
+            });
+        } catch (err) {
+            toast({
+                title: "Error!",
+                description: err?.response?.data?.message,
+            });
+        }
+    };
+
+    const handleRemoveItem = async (productId) => {
+        try {
+            setLoading(true);
+            await cartService.deleteItem(productId);
+            await fetchCart();
+            setLoading(false);
+            toast({
+                title: "Item removed from cart!",
             });
         } catch (err) {
             toast({
@@ -79,7 +97,12 @@ export default function CartPage() {
                                             el?.product?.price
                                         )}
                                     </p>
-                                    <p className="text-red-400 cursor-pointer text-sm mt-2">
+                                    <p
+                                        className="text-red-400 cursor-pointer text-sm mt-2"
+                                        onClick={() =>
+                                            handleRemoveItem(el?.product?.id)
+                                        }
+                                    >
                                         Remove
                                     </p>
                                 </div>
@@ -90,8 +113,9 @@ export default function CartPage() {
                                         variant="ghost"
                                         className="h-8 w-8 rounded-full text-lg"
                                         onClick={() => {
-                                            removeItem(
-                                                item.product.id,
+                                            if (el.quantity == 1) return;
+                                            updateCartQuantity(
+                                                el?.product?.id,
                                                 "decrement"
                                             );
                                         }}
@@ -105,8 +129,13 @@ export default function CartPage() {
                                         variant="ghost"
                                         className="h-8 w-8 rounded-full text-lg"
                                         onClick={() => {
-                                            removeItem(
-                                                item.product.id,
+                                            if (
+                                                el?.quantity ==
+                                                el?.product?.stock
+                                            )
+                                                return;
+                                            updateCartQuantity(
+                                                el?.product?.id,
                                                 "increment"
                                             );
                                         }}

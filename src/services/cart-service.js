@@ -36,6 +36,15 @@ class CartService {
             throw err;
         }
     }
+
+    async deleteItem(productId) {
+        try {
+            const { data } = await this.httpClient.delete(`/cart/${productId}`, true);
+            return data;
+        } catch (err) {
+            throw err;
+        }
+    }
 }
 
 const cartService = new CartService(FetchClient);

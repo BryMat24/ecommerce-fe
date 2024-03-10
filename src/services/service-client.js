@@ -25,13 +25,24 @@ const FetchClient = {
     },
     async put(url, includeAccessToken = true) {
         if (includeAccessToken) {
-            return await apiClient.put(url, {
+            return await apiClient.put(url, null, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("access_token")}`,
                 },
             });
         } else {
             return await apiClient.put(url);
+        }
+    },
+    async delete(url, includeAccessToken = true) {
+        if (includeAccessToken) {
+            return await apiClient.delete(url, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+                },
+            });
+        } else {
+            return await apiClient.delete(url);
         }
     }
 };
