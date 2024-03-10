@@ -28,7 +28,17 @@ class OrderService {
 
     async getOrders() {
         try {
-            // TODO
+            const { data } = await this.httpClient.get("/order", true);
+            return data;
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    async getOrderDetail(orderId) {
+        try {
+            const { data } = await this.httpClient.get(`/order/${orderId}`, true);
+            return data;
         } catch (err) {
             throw err;
         }
@@ -36,7 +46,6 @@ class OrderService {
 
     async createOrders(sessionId) {
         try {
-            console.log(sessionId)
             await this.httpClient.post("/order", sessionId, true);
         } catch (err) {
             throw err;
