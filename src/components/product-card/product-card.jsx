@@ -4,7 +4,7 @@ import convertDollar from "@/utils/format-currency";
 
 export default function ProductCard({ product }) {
     return (
-        <div>
+        <div className="w-72">
             <Link href={`/product/${product?.id}`}>
                 <div className="w-[18rem] h-[18rem] border-none rounded-lg bg-[#F2F2F2] flex justify-center items-center p-5">
                     <img
@@ -14,7 +14,7 @@ export default function ProductCard({ product }) {
                     />
                 </div>
             </Link>
-            <div>
+            <div className="w-full px-2">
                 <h1 className="text-lg font-bold mt-3">
                     {capitalizeFirstLetter(product?.name)}
                 </h1>
