@@ -5,8 +5,10 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { useToast } from "@/components/ui/use-toast";
 import authService from "@/services/auth-service";
+import loginImage from "../../../../public/login.png";
 
 export default function LoginPage() {
     const [userData, setUserData] = useState({});
@@ -33,8 +35,9 @@ export default function LoginPage() {
 
     return (
         <div className="w-full flex justify-center items-center h-[calc(100vh-3.5rem)]">
+            <Image src={loginImage} className="w-[36rem] h-[36rem] rounded-s-lg shadow-2xl"/>
             <form
-                className="w-96 h-96 flex flex-col justify-center bg-primary-foreground p-12 rounded-lg"
+                className="w-[36rem] h-[36rem] flex flex-col justify-center bg-primary-foreground p-12 rounded-e-lg shadow-2xl"
                 onSubmit={handleSubmit}
             >
                 <h1 className="text-3xl mb-6 font-bold text-center">Login</h1>

@@ -4,7 +4,9 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-
+import loginImage from "../../../../public/login.png";
+import Image from "next/image";
+import Link from "next/link";
 const Register = () => {
     const [userData, setUserData] = useState({});
     const router = useRouter();
@@ -29,8 +31,9 @@ const Register = () => {
 
     return (
         <div className="w-full flex justify-center items-center h-[calc(100vh-3.5rem)]">
+            <Image src={loginImage} className="w-[36rem] h-[36rem] rounded-s-lg shadow-2xl"/>
             <form
-                className="w-96 h-96 flex flex-col justify-center bg-primary-foreground p-12 rounded-lg"
+                className="w-[36rem] h-[36rem] flex flex-col justify-center bg-primary-foreground p-12 rounded-e-lg"
                 onSubmit={handleSubmit}
             >
                 <h1 className="text-3xl mb-6 font-bold text-center">
@@ -72,7 +75,11 @@ const Register = () => {
                 <Button type="submit" className=" text-white">
                     Register
                 </Button>
+                <Link href="/login" className="mt-2 mx-auto">
+                    Already have an account?
+                </Link>
             </form>
+           
         </div>
     );
 };
