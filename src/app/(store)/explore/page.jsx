@@ -21,6 +21,7 @@ import { carouselContent } from "@/data/carousel-content";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import Footer from "@/components/footer/footer";
+import Pagination from "@mui/material/Pagination";
 
 export default function ExplorePage() {
     const [products, setProducts] = useState([]);
@@ -29,13 +30,16 @@ export default function ExplorePage() {
     const { toast } = useToast();
     const searchParams = useSearchParams();
     const categoryParam = searchParams.get("category");
+    const [currPage, setCurrPage] = useState(1);
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
                 setLoading(true);
                 const data = await productService.getProducts(
-                    categoryParam ? `?categorySlug=${categoryParam}` : null
+                    categoryParam
+                        ? `?categorySlug=${categoryParam}&currPage=${currPage}`
+                        : `?currPage=${currPage}`
                 );
                 setProducts(data);
                 setLoading(false);
@@ -63,7 +67,7 @@ export default function ExplorePage() {
 
         fetchProducts();
         fetchCategories();
-    }, [categoryParam]);
+    }, [categoryParam, currPage]);
 
     return (
         <div className="w-full">
@@ -121,9 +125,20 @@ export default function ExplorePage() {
                         </div>
 
                         <div className="flex gap-8 flex-wrap mt-12 justify-evenly">
-                            {products.map((product, index) => (
+                            {products?.product?.map((product, index) => (
                                 <ProductCard product={product} key={index} />
                             ))}
+                        </div>
+                        <div className="flex justify-center mt-24">
+                            <Pagination
+                                count={products?.totalPages}
+                                onChange={(e, value) => {
+                                    e.preventDefault();
+                                    setCurrPage(value);
+                                }}
+                                size="large"
+                                page={currPage}
+                            />
                         </div>
 
                         <Footer />
