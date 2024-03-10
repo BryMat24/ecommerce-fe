@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import OrderSummary from "@/components/cart/order-summary";
 import cartService from "@/services/cart-service";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
+import convertDollar from "@/utils/format-currency";
+import capitalizeFirstLetter from "@/utils/capitalize";
+import Swal from "sweetalert2";
 
 export default function CartPage() {
     const [cart, setCart] = useState([]);
@@ -12,99 +14,168 @@ export default function CartPage() {
     const { toast } = useToast();
 
     useEffect(() => {
-        const fetchCart = async () => {
-            try {
-                setLoading(true);
-                const data = await cartService.getCarts();
-                setCart(data);
-                setLoading(false);
-            } catch (err) {
-                toast({
-                    title: "Error!",
-                    description: err?.response?.data?.message,
-                });
-            }
-        };
-
         fetchCart();
     }, []);
+
+    const fetchCart = async () => {
+        try {
+            setLoading(true);
+            const data = await cartService.getCarts();
+            setCart(data);
+            setLoading(false);
+        } catch (err) {
+            toast({
+                title: "Error!",
+                description: err?.response?.data?.message,
+            });
+        }
+    };
+
+    const updateCartQuantity = async (productId, updateStatus) => {
+        try {
+            setLoading(true);
+            await cartService.updateQuantityCart(productId, updateStatus);
+            await fetchCart();
+            setLoading(false);
+            toast({
+                title: "Cart quantity updated!",
+            });
+        } catch (err) {
+            toast({
+                title: "Error!",
+                description: err?.response?.data?.message,
+            });
+        }
+    };
+
+    const handleRemoveItem = async (productId) => {
+        try {
+            setLoading(true);
+            await cartService.deleteItem(productId);
+            await fetchCart();
+            setLoading(false);
+            toast({
+                title: "Item removed from cart!",
+            });
+        } catch (err) {
+            toast({
+                title: "Error!",
+                description: err?.response?.data?.message,
+            });
+        }
+    };
 
     return loading ? (
         <>Loading</>
     ) : (
-        <div className="w-full py-12 px-12">
-            <h1 className="font-bold text-3xl mb-2">Cart</h1>
+        <div className="w-full py-12 px-12 mt-16 border-t-2 mx-16">
+            <h1 className="font-bold text-3xl mb-8">Your Cart</h1>
             {cart.length === 0 ? (
                 <div className="text-muted-foreground">Cart is empty</div>
             ) : (
-                <div className="w-full flex flex-row">
-                    <div className="w-2/3">
-                        <div className="w-full h-full">
-                            {cart?.map((item, index) => (
-                                <div
-                                    className="w-[calc(100%-4rem)] flex flex-row mb-6"
-                                    key={index}
-                                >
-                                    <div className="w-48 h-48 bg-[#F2F2F2] text-primary-foreground flex items-center justify-center">
-                                        <img
-                                            src={item?.product?.imageUrl}
-                                            alt="image"
-                                        />
-                                    </div>
-                                    <div className="flex flex-col px-4 w-[calc(100%-12rem)]">
-                                        <div className="text-xl font-bold my-1">
-                                            {item?.product?.name}
-                                        </div>
-                                        <div className="text-sm text-muted-foreground mb-1">
-                                            Details:{" "}
-                                            {item?.product?.description}
-                                        </div>
-                                        <div className="text-sm text-muted-foreground mb-1">
-                                            Quantity: {item?.quantity}
-                                        </div>
-                                        <div className="text-xl text-right flex justify-between mt-8">
-                                            <div>
-                                                <Button
-                                                    variant="ghost"
-                                                    className="h-12 w-12 rounded-full text-xl"
-                                                    onClick={() => {
-                                                        removeItem(
-                                                            item.product.id,
-                                                            "decrement"
-                                                        );
-                                                    }}
-                                                >
-                                                    -
-                                                </Button>
-                                                <Button
-                                                    variant="ghost"
-                                                    className="h-12 w-12 rounded-full text-xl"
-                                                    onClick={() => {
-                                                        removeItem(
-                                                            item.product.id,
-                                                            "increment"
-                                                        );
-                                                    }}
-                                                >
-                                                    +
-                                                </Button>
-                                            </div>
-
-                                            <div className="font-bold">
-                                                S$
-                                                {item.product.price *
-                                                    item.quantity}
-                                            </div>
-                                        </div>
-                                    </div>
+                <>
+                    <div className="flex bg-[#2F2F2F] py-2 text-white px-5">
+                        <div className="w-2/3">Product</div>
+                        <div className="flex-1">Quantity</div>
+                        <div>Subtotal</div>
+                    </div>
+                    {cart?.map((el, index) => (
+                        <div className="flex py-2 px-5" key={index}>
+                            <div className="w-2/3 flex gap-5">
+                                <img
+                                    src={el?.product?.imageUrl}
+                                    alt=""
+                                    className="object-cover w-28 h-28"
+                                />
+                                <div className="flex flex-col justify-center">
+                                    <p className="font-md text-xl">
+                                        {capitalizeFirstLetter(
+                                            el?.product?.name
+                                        )}
+                                    </p>
+                                    <p className="font-bold">
+                                        {convertDollar.format(
+                                            el?.product?.price
+                                        )}
+                                    </p>
+                                    <p
+                                        className="text-red-400 cursor-pointer text-sm mt-2"
+                                        onClick={() => {
+                                            Swal.fire({
+                                                title: `Do you want to remove this item from cart?`,
+                                                showCancelButton: true,
+                                                confirmButtonText: "Delete",
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    handleRemoveItem(
+                                                        el?.product?.id
+                                                    );
+                                                }
+                                            });
+                                        }}
+                                    >
+                                        Remove
+                                    </p>
                                 </div>
-                            ))}
+                            </div>
+                            <div className="flex-1 flex items-center">
+                                <div className="flex items-center gap-2">
+                                    <Button
+                                        variant="ghost"
+                                        className="h-8 w-8 rounded-full text-lg"
+                                        onClick={() => {
+                                            if (el.quantity == 1) return;
+                                            updateCartQuantity(
+                                                el?.product?.id,
+                                                "decrement"
+                                            );
+                                        }}
+                                    >
+                                        -
+                                    </Button>
+                                    <div className="font-medium text-sm">
+                                        {el?.quantity}
+                                    </div>
+                                    <Button
+                                        variant="ghost"
+                                        className="h-8 w-8 rounded-full text-lg"
+                                        onClick={() => {
+                                            if (
+                                                el?.quantity ==
+                                                el?.product?.stock
+                                            )
+                                                return;
+                                            updateCartQuantity(
+                                                el?.product?.id,
+                                                "increment"
+                                            );
+                                        }}
+                                    >
+                                        +
+                                    </Button>
+                                </div>
+                            </div>
+                            <div className="flex items-center">
+                                <div>
+                                    {convertDollar.format(
+                                        el?.quantity * el?.product?.price
+                                    )}
+                                </div>
+                            </div>
                         </div>
+                    ))}
+                    <div className="flex px-5 items-end flex-col">
+                        <div className="border-black border-t-2 w-64 pt-2 flex justify-between">
+                            <div>Subtotal:</div>
+                            <div className="font-bold">
+                                {convertDollar.format(cart.totalPrice)}
+                            </div>
+                        </div>
+                        <Button className="mt-5 rounded-3xl px-5">
+                            Proceed to checkout
+                        </Button>
                     </div>
-                    <div className="w-1/3">
-                        <OrderSummary products={cart}></OrderSummary>
-                    </div>
-                </div>
+                </>
             )}
         </div>
     );
