@@ -120,7 +120,7 @@ export default function ExplorePage() {
                             </div>
                         </div>
 
-                        <div className="flex gap-8 flex-wrap mt-12">
+                        <div className="flex gap-8 flex-wrap mt-12 justify-evenly">
                             {products.map((product, index) => (
                                 <ProductCard product={product} key={index} />
                             ))}
