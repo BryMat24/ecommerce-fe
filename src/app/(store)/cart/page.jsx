@@ -7,11 +7,14 @@ import { Button } from "@/components/ui/button";
 import convertDollar from "@/utils/format-currency";
 import capitalizeFirstLetter from "@/utils/capitalize";
 import Swal from "sweetalert2";
+import orderService from "@/services/order-service";
+import { useRouter } from "next/navigation";
 
 export default function CartPage() {
     const [cart, setCart] = useState([]);
     const [loading, setLoading] = useState(true);
     const { toast } = useToast();
+    const router = useRouter();
 
     useEffect(() => {
         fetchCart();
@@ -57,6 +60,20 @@ export default function CartPage() {
             toast({
                 title: "Item removed from cart!",
             });
+        } catch (err) {
+            toast({
+                title: "Error!",
+                description: err?.response?.data?.message,
+            });
+        }
+    };
+
+    const handleCheckout = async () => {
+        try {
+            setLoading(true);
+            const data = await orderService.getCheckoutSession(cart);
+            router.push(data?.checkoutUrl);
+            setLoading(false);
         } catch (err) {
             toast({
                 title: "Error!",
@@ -171,7 +188,10 @@ export default function CartPage() {
                                 {convertDollar.format(cart.totalPrice)}
                             </div>
                         </div>
-                        <Button className="mt-5 rounded-3xl px-5">
+                        <Button
+                            className="mt-5 rounded-3xl px-5"
+                            onClick={handleCheckout}
+                        >
                             Proceed to checkout
                         </Button>
                     </div>
