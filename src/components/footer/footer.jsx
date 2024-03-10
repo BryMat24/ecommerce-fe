@@ -6,7 +6,7 @@ import { FaLinkedin } from "react-icons/fa";
 const Footer = () => {
     return (
         <>
-            <div className="bg-[#2F2F2F] mt-[200px] rounded-lg px-8 py-12 relative">
+            <div className="bg-[#2F2F2F] mt-[150px] rounded-lg px-8 py-12 relative">
                 <h1 className="text-white font-bold text-4xl">
                     Ready to Get Our New Stuff?
                 </h1>
