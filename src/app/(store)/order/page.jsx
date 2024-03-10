@@ -46,7 +46,7 @@ export default function OrderPage() {
                             >
                                 <div className="flex items-center gap-5">
                                     <img
-                                        className="h-36 w-36 bg-black"
+                                        className="h-36 w-36 bg-[#F2F2F2] object-cover"
                                         src={order?.imageUrl}
                                     ></img>
                                     <div className="flex gap-2 flex-col">
