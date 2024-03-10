@@ -68,25 +68,17 @@ export default function ExplorePage() {
     return (
         <div className="w-full">
             <div className="relative">
-                <div className="absolute top-0 left-0 right-0 z-10 w-full flex justify-center">
-                    <div className="w-[90%]">
-                        <Navbar />
-                    </div>
-                </div>
-
-                <div className="relative">
-                    <Carousel>
-                        {carouselContent?.map((el, index) => (
-                            <div key={index}>
-                                <img
-                                    src={el.url}
-                                    alt="img1"
-                                    className="object-cover"
-                                />
-                            </div>
-                        ))}
-                    </Carousel>
-                </div>
+                <Carousel>
+                    {carouselContent?.map((el, index) => (
+                        <div key={index}>
+                            <img
+                                src={el.url}
+                                alt="img1"
+                                className="object-cover"
+                            />
+                        </div>
+                    ))}
+                </Carousel>
             </div>
 
             {!loading && (

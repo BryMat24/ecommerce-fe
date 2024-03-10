@@ -1,3 +1,4 @@
+"use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
@@ -35,17 +36,21 @@ const Navbar = () => {
                 <div className="rounded-full border-2 border-[#df5f4f] w-[7px] h-[7px] absolute top-[6px] right-[-8px]"></div>
             </div>
             <div className="flex items-center gap-3">
-                <Link href="/cart">
-                    <div className="w-[40px] h-[40px] border-2 rounded-full flex justify-center items-center">
-                        <MdOutlineShoppingCart className="w-[20px] h-[20px] cursor-pointer" />
-                    </div>
-                </Link>
+                {isLoggedIn && (
+                    <>
+                        <Link href="/cart">
+                            <div className="w-[40px] h-[40px] border-2 rounded-full flex justify-center items-center">
+                                <MdOutlineShoppingCart className="w-[20px] h-[20px] cursor-pointer" />
+                            </div>
+                        </Link>
 
-                <Link href="/order">
-                    <div className="w-[40px] h-[40px] border-2 rounded-full flex justify-center items-center">
-                        <MdHistory className="w-[20px] h-[20px] cursor-pointer" />
-                    </div>
-                </Link>
+                        <Link href="/order">
+                            <div className="w-[40px] h-[40px] border-2 rounded-full flex justify-center items-center">
+                                <MdHistory className="w-[20px] h-[20px] cursor-pointer" />
+                            </div>
+                        </Link>
+                    </>
+                )}
 
                 {isLoggedIn ? (
                     <DropdownMenu>

@@ -1,4 +1,6 @@
 import FetchClient from "@/services/service-client";
+import capitalizeFirstLetter from "@/utils/capitalize";
+import convertDollar from "@/utils/format-currency";
 
 class ProductService {
     constructor(httpClient) {
@@ -8,6 +10,15 @@ class ProductService {
     async getProducts(params) {
         try {
             const { data } = await this.httpClient.get(`/product` + `${params ? params : ""}`, false);
+            return data;
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    async getProductDetail(productId) {
+        try {
+            const { data } = await this.httpClient.get(`/product/${productId}`, false);
             return data;
         } catch (err) {
             throw err;
