@@ -1,84 +1,74 @@
 "use client";
-import {
-  Card,
-  CardContent,
-} from "@/components/ui/card";
-
-import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-} from "@/components/ui/accordion"
-
 import Link from "next/link";
 import Image from "next/image";
+import orderService from "@/services/order-service";
+import { useEffect, useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
+import convertDollar from "@/utils/format-currency";
+import formatLongDate from "@/utils/format-date";
 
-const products = [
-    {
-        id: 1,
-        name: "Product 1",
-        price: 100,
-        quantity: 1
-    },
-    {
-        id: 2,
-        name: "Product 2",
-        price: 200,
-        quantity: 2
-    }
-]
+export default function OrderPage() {
+    const [loading, setLoading] = useState(false);
+    const [orders, setOrders] = useState([]);
+    const { toast } = useToast();
 
-const orders = [
-    {
-        id: 1,
-        items: [
-            {
-                product: products[0],
-                quantity: 3
-            },
-            {
-                product: products[1],
-                quantity: 2
+    useEffect(() => {
+        const fetchOrders = async () => {
+            try {
+                setLoading(true);
+                const data = await orderService.getOrders();
+                setOrders(data);
+                setLoading(false);
+            } catch (err) {
+                toast({
+                    title: "Error!",
+                    description: err?.response?.data?.message,
+                });
             }
-        ]
-    },
-    {
-        id: 2,
-        items: [
-            {
-                product: products[1],
-                quantity: 6
-            }
-        ]
-    }
-]
+        };
 
-const getOrderCard = (order) => {
-    return(
-        <Link href={`/order/${order.id}`} className="w-full h-36 border m-4 flex items-center justify-between hover:bg-slate-50">
-            <div className="h-36 w-36 bg-black">
-                <Image></Image>
-            </div>
-            <div className="px-4 text-2xl font-semibold pr-16">View Order {">>>"}</div>
-        </Link>
-    )
-}
+        fetchOrders();
+    }, []);
 
-export default function OrderPage(){
-    return(
+    return (
         <div className="p-12 w-full mt-16 border-t-2 mx-16">
-            {orders.length === 0? <h1 className="font-bold text-3xl">No Orders</h1> : 
-                (
-                    <div className="w-full">
-                        <h1 className="font-bold text-3xl mb-6">Orders</h1>
-                        <div className="w-full flex flex-col">
-                            {orders.map((order, index) => getOrderCard(order))}
-                        </div>
+            <div className="w-full">
+                <h1 className="font-bold text-3xl mb-6">Orders</h1>
+                {orders.length === 0 ? (
+                    <div className="text-muted-foreground">Order is empty</div>
+                ) : (
+                    <div className="w-full flex flex-col">
+                        {orders.map((order, index) => (
+                            <Link
+                                href={`/order/${order?.id}`}
+                                key={index}
+                                className="w-full h-36 border m-4 flex items-center justify-between hover:bg-slate-50"
+                            >
+                                <div className="flex items-center gap-5">
+                                    <img
+                                        className="h-36 w-36 bg-black"
+                                        src={order?.imageUrl}
+                                    ></img>
+                                    <div className="flex gap-2 flex-col">
+                                        <p className="font-bold">
+                                            Order ID: {order?.id}
+                                        </p>
+                                        <p>
+                                            {convertDollar.format(
+                                                order?.totalPrice
+                                            )}
+                                        </p>
+                                        <p>{formatLongDate(order?.dateIn)}</p>
+                                    </div>
+                                </div>
+                                <div className="px-4 text-2xl font-semibold pr-16">
+                                    View Detail
+                                </div>
+                            </Link>
+                        ))}
                     </div>
-                )
-            }
-            
+                )}
+            </div>
         </div>
-    )
+    );
 }
