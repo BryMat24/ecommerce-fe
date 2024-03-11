@@ -76,7 +76,7 @@ export default function ExplorePage() {
     }, [categoryParam]);
 
     return (
-        <div className="w-full">
+        <div className="w-full ">
             <div className="relative">
                 <Carousel>
                     {carouselContent?.map((el, index) => (
@@ -92,8 +92,8 @@ export default function ExplorePage() {
             </div>
 
             {!loading && (
-                <div className="relative">
-                    <div className="px-8 absolute top-[-70px] left-1/2 transform -translate-x-1/2 bg-white w-[90%] rounded-t-lg pb-12 ">
+                <div className="relative ">
+                    <div className="px-8 absolute top-[-70px] left-1/2 transform -translate-x-1/2 bg-white w-[90%] rounded-t-lg pb-12">
                         <div className="flex justify-between w-full">
                             <h1 className="font-bold text-3xl mb-4 mt-5">
                                 Give All You Need
