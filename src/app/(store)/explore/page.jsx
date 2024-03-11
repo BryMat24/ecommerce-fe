@@ -130,7 +130,7 @@ export default function ExplorePage() {
                             </div>
                         </div>
 
-                        <div className="flex gap-8 flex-wrap mt-12 justify-start">
+                        <div className="flex gap-8 flex-wrap mt-12 justify-center">
                             {products?.product?.map((product, index) => (
                                 <ProductCard product={product} key={index} />
                             ))}

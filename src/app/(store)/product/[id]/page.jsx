@@ -58,10 +58,10 @@ export default function ProductPage() {
             <div className="p-24 w-full h-full flex justify-center relative mt-16 border-t-2 mx-16">
                 <div className="shadow-2xl rounded-3xl">
                     <div className="flex gap-8">
-                        <div className="w-[30rem] h-[30rem] flex justify-center items-center text-white rounded-3xl bg-[#F2F2F2]">
+                        <div className="w-[30rem] h-[30rem] flex justify-center items-center text-white rounded-3xl">
                             <img src={product?.imageUrl} alt="product image" className="object-contain h-full w-full"/>
                         </div>
-                        <div className="px-12 w-[calc(100%-30rem)] h-[30rem] flex flex-col py-6">
+                        <div className="px-12 w-[calc(100%-30rem)] h-[30rem] flex flex-col justify-center">
                             <h1 className="text-4xl font-bold">
                                 {capitalizeFirstLetter(product?.name)}
                             </h1>

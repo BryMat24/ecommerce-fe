@@ -8,15 +8,15 @@ import Link from "next/link";
 const featuredProducts = [
     {
         id: 5,
-        name: "Apple MacBook Air M2",
+        name: "Microsoft Surface Pro 9",
     },
     {
         id: 15,
-        name: "Google Pixel Tablet",
+        name: "Samsung Galaxy S23",
     },
     {
         id: 23,
-        name: "Xiaomi 13T",
+        name: "Apple iPad Air (5th Generation)",
     },
 ];
 export default function SearchBar() {
