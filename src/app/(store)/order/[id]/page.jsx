@@ -54,11 +54,11 @@ const OrderItem = () => {
                         className="w-full h-36 m-4 flex items-center"
                         key={index}
                     >
-                        <div className="h-36 w-36 bg-black">
+                        <div className="h-36 w-36 bg-[#F2F2F2] rounded-lg p-2">
                             <img
                                 src={orderItem?.productOrder?.imageUrl}
                                 alt="product image"
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-contain"
                             ></img>
                         </div>
                         <div className="w-full pr-8">

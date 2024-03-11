@@ -1,7 +1,7 @@
 const baseUrl = "http://localhost:8080";
 
 const data = {
-    access_token: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrZXZpbmprQGdtYWlsLmNvbSIsImV4cCI6MTcxMDEzMzQ3OSwiaWF0IjoxNzEwMDk3NDc5fQ.DVmbIJQrj6O-hHdQShMkmLX-ByrfRp2ADe8zAttRiBQ",
+    access_token: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrZXZpbmprQGdtYWlsLmNvbSIsImV4cCI6MTcxMDE0MDg4MywiaWF0IjoxNzEwMTA0ODgzfQ.TYeMsuB3Q2i85lQAotx9WZR2K8N7NjUuYPFzWd7fjfw",
 
     registerEndPoint: {
         POST: baseUrl + "/register"

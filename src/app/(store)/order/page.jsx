@@ -42,13 +42,16 @@ export default function OrderPage() {
                             <Link
                                 href={`/order/${order?.id}`}
                                 key={index}
-                                className="w-full h-36 border m-4 flex items-center justify-between hover:bg-slate-50"
+                                className="w-full h-36 border-b-2 border-r-2 m-4 flex items-center justify-between transition-all hover:translate-y-[-0.25rem] hover:shadow-lg"
                             >
                                 <div className="flex items-center gap-5">
-                                    <img
-                                        className="h-36 w-36 bg-black"
-                                        src={order?.imageUrl}
-                                    ></img>
+                                    <div className="flex items-center justify-center h-36 w-36 p-2 bg-[#F2F2F2]">
+                                        <img
+                                            className="object-contain"
+                                            src={order?.imageUrl}
+                                        />
+                                    </div>
+                                    
                                     <div className="flex gap-2 flex-col">
                                         <p className="font-bold">
                                             Order ID: {order?.id}

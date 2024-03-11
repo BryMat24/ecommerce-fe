@@ -100,7 +100,7 @@ export default function CartPage() {
                                 <img
                                     src={el?.product?.imageUrl}
                                     alt=""
-                                    className="object-cover w-28 h-28"
+                                    className="object-contain w-28 h-28"
                                 />
                                 <div className="flex flex-col justify-center">
                                     <p className="font-md text-xl">

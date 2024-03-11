@@ -69,9 +69,9 @@ export default function Home() {
                             <div className="flex-1 flex items-center">
                                 <Link
                                     href="/explore"
-                                    className="text-primary-foreground hover:underline text-xl"
+                                    className="text-primary-foreground underline text-4xl transition-all"
                                 >
-                                    Shop Now &gt;
+                                    Shop Now
                                 </Link>
                             </div>
                         </div>

@@ -6,7 +6,7 @@ export default function ProductCard({ product }) {
     return (
         <div className="w-72">
             <Link href={`/product/${product?.id}`}>
-                <div className="w-[18rem] h-[18rem] border-none rounded-lg bg-[#F2F2F2] flex justify-center items-center p-5">
+                <div className="w-[18rem] h-[18rem] border-none rounded-lg bg-[#F2F2F2] flex justify-center items-center p-5 transition-all hover:translate-y-[-0.75rem] hover:shadow-xl duration-300">
                     <img
                         src={product?.imageUrl}
                         className="rounded-t-lg w-[100%] h-[100%] object-contain"
@@ -14,7 +14,7 @@ export default function ProductCard({ product }) {
                     />
                 </div>
             </Link>
-            <div className="w-full px-2">
+            <div className="w-full px-2 pb-12">
                 <h1 className="text-lg font-bold mt-3">
                     {capitalizeFirstLetter(product?.name)}
                 </h1>

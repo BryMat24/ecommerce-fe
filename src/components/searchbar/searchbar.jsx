@@ -7,16 +7,16 @@ import Link from "next/link";
 
 const featuredProducts = [
     {
-        id: 4,
-        name: "Laptop 1",
+        id: 5,
+        name: "Apple MacBook Air M2",
     },
     {
-        id: 9,
-        name: "Phone 1",
+        id: 15,
+        name: "Google Pixel Tablet",
     },
     {
-        id: 14,
-        name: "Tabelt 1",
+        id: 23,
+        name: "Xiaomi 13T",
     },
 ];
 export default function SearchBar() {
@@ -30,14 +30,13 @@ export default function SearchBar() {
             return;
         }
         setSearchValue(search);
-        const getProducts = await productService.getProducts();
-        const filteredProducts = getProducts
-            .filter((product) =>
-                product.name.toLowerCase().includes(search.toLowerCase())
-            )
-            .slice(0, 5);
+        const products = await productService.getProducts(
+            search ? `?productName=${search}` : null
+        );
+        const filteredProducts = products.product.slice(0, 5);
         setRelatedSearch(filteredProducts);
     };
+
     const waitAndHide = () => {
         setTimeout(() => {
             setShowPanel(false);
