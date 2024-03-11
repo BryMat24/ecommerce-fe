@@ -30,14 +30,13 @@ export default function SearchBar() {
             return;
         }
         setSearchValue(search);
-        const getProducts = await productService.getProducts();
-        const filteredProducts = getProducts
-            .filter((product) =>
-                product.name.toLowerCase().includes(search.toLowerCase())
-            )
-            .slice(0, 5);
+        const products = await productService.getProducts(
+            search ? `?productName=${search}` : null
+        );
+        const filteredProducts = products.product.slice(0, 5);
         setRelatedSearch(filteredProducts);
     };
+
     const waitAndHide = () => {
         setTimeout(() => {
             setShowPanel(false);
