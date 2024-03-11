@@ -9,6 +9,8 @@ import { useParams, useRouter } from "next/navigation";
 import capitalizeFirstLetter from "@/utils/capitalize";
 import convertDollar from "@/utils/format-currency";
 import cartService from "@/services/cart-service";
+import ProductCard from "@/components/product-card/product-card";
+import Footer from "@/components/footer/footer";
 import Link from "next/link";
 
 export default function ProductPage() {
@@ -77,14 +79,14 @@ export default function ProductPage() {
 
     return (
         !loading && (
-            <div className="p-24 w-full h-full flex justify-center relative mt-16 border-t-2 mx-16 flex-col">
+            <div className="p-24 w-full h-full flex justify-center relative mt-16 border-t-2 mx-16 flex-col pb-0">
                 <div>
                     <div className="flex gap-8">
                         <div className="w-[30rem] h-[30rem] flex justify-center items-center text-white rounded-3xl bg-[#F2F2F2]">
                             <img
                                 src={product?.imageUrl}
                                 alt="product image"
-                                className="object-contain h-full w-full"
+                                className="object-contain h-4/5 w-4/5 hover:scale-125 transition-all duration-500 cursor-zoom-in"
                             />
                         </div>
                         <div className="px-12 w-[calc(100%-30rem)] h-[30rem] flex flex-col justify-center">
@@ -142,25 +144,15 @@ export default function ProductPage() {
                         </div>
                     </div>
                 </div>
-                <div className="mt-12">
+                <div className="mt-12 w-[95%]">
                     <h1 className="font-bold text-3xl">Related Products</h1>
-                    <div className="flex gap-2 mt-5">
-                        {similarProducts.map((el, index) => (
-                            <Link href={`/product/${el.id}`} className="flex-1">
-                                <div className="flex flex-col">
-                                    <img
-                                        src={el?.imageUrl}
-                                        alt="product image"
-                                        className="object-contain w-full h-64 rounded-3xl bg-[#F2F2F2]"
-                                    />
-                                    <div className="mt-2 text-center">
-                                        {el.name}
-                                    </div>
-                                </div>
-                            </Link>
-                        ))}
+                    <div className="flex gap-2 mt-5 justify-between">
+                        {
+                            similarProducts.map((el, index) => (<ProductCard product={el} key={index} />))
+                        }
                     </div>
                 </div>
+                <Footer/>
             </div>
         )
     );
