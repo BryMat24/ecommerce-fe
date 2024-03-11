@@ -30,7 +30,7 @@ const Navbar = () => {
         <div className=" bg-white h-[60px] rounded-b-lg flex items-center px-8 justify-between">
             <div className="font-bold text-lg relative">
                 <Link href="/explore">
-                    <p>Dope</p>
+                    <p>Okit</p>
                 </Link>
 
                 <div className="rounded-full border-2 border-[#df5f4f] w-[7px] h-[7px] absolute top-[6px] right-[-8px]"></div>

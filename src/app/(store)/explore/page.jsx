@@ -31,6 +31,7 @@ export default function ExplorePage() {
     const searchParams = useSearchParams();
     const categoryParam = searchParams.get("category");
     const [currPage, setCurrPage] = useState(1);
+    const [categorySlug, setCategorySlug] = useState(categoryParam);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -67,7 +68,12 @@ export default function ExplorePage() {
 
         fetchProducts();
         fetchCategories();
-    }, [categoryParam, currPage]);
+    }, [categorySlug, currPage]);
+
+    useEffect(() => {
+        setCategorySlug(categoryParam);
+        setCurrPage(1);
+    }, [categoryParam]);
 
     return (
         <div className="w-full">

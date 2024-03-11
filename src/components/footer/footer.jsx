@@ -20,7 +20,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="max-w-[400px] absolute right-10 bottom-10">
-                    <p className="text-white">Dopes for Needs</p>
+                    <p className="text-white">Okit for Needs</p>
                     <p className="text-white font-thin text-sm mt-2">
                         We'll listen to your needs and provide you with the best
                         products. Upcoming kevin's tenga will soon be available!
