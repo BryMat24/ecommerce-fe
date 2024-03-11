@@ -92,7 +92,7 @@ export default function ExplorePage() {
             </div>
 
             {!loading && (
-                <div className="relative ">
+                <div className="relative transition-all slide-up">
                     <div className="px-8 absolute top-[-70px] left-1/2 transform -translate-x-1/2 bg-white w-[90%] rounded-t-lg pb-12">
                         <div className="flex justify-between w-full">
                             <h1 className="font-bold text-3xl mb-4 mt-5">

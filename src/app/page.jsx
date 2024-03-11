@@ -17,7 +17,7 @@ export default function Home() {
                     className="w-1/2 h-full flex items-center justify-center"
                     id="main-page-image-2"
                 >
-                    <img src="/landing.png" className="object-contain h-2/3 w-2/3 "></img>
+                    <img src="/landing.png" className="object-contain h-2/3 w-2/3 "></img>     
                 </div>
                 <div className="flex flex-col w-1/2 h-full justify-center">
                     <div
@@ -45,7 +45,7 @@ export default function Home() {
                                 Shop Now
                             </Link>
                             <Link
-                                href="/explore"
+                                href="/login"
                                 className="text-primary text-md ml-3 border p-2 rounded-lg w-32 text-center transition-all duration-300 hover:bg-muted"
                             >
                                 Login

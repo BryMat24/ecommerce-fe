@@ -39,13 +39,13 @@ const Navbar = () => {
                 {isLoggedIn && (
                     <>
                         <Link href="/cart">
-                            <div className="w-[40px] h-[40px] border-2 rounded-full flex justify-center items-center">
+                            <div className="w-[40px] h-[40px] border-2 rounded-full flex justify-center items-center hover:bg-primary hover:text-primary-foreground transition-all duration-300">
                                 <MdOutlineShoppingCart className="w-[20px] h-[20px] cursor-pointer" />
                             </div>
                         </Link>
 
                         <Link href="/order">
-                            <div className="w-[40px] h-[40px] border-2 rounded-full flex justify-center items-center">
+                            <div className="w-[40px] h-[40px] border-2 rounded-full flex justify-center items-center hover:bg-primary hover:text-primary-foreground transition-all duration-300">
                                 <MdHistory className="w-[20px] h-[20px] cursor-pointer" />
                             </div>
                         </Link>

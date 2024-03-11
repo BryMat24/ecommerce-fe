@@ -20,6 +20,10 @@ html, body{
     animation: slide-right-appear-2 1.5s ease-in-out;
 }
 
+.slide-up{
+    animation: slide-up-appear 1s ease-in-out;
+}
+
 @keyframes slide-up-appear{
     0%{
         opacity: 0.2;

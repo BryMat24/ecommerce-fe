@@ -26,6 +26,7 @@ const Footer = () => {
                         products. Upcoming kevin's tenga will soon be available!
                     </p>
                 </div>
+                
             </div>
             <div className="flex justify-center mt-8">
                 <div>
@@ -38,6 +39,7 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
+            <div className="font-thin text-sm text-center mt-2">© copyright 2024</div>
         </>
     );
 };
