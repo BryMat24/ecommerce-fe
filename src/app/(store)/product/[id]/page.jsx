@@ -9,11 +9,13 @@ import { useParams, useRouter } from "next/navigation";
 import capitalizeFirstLetter from "@/utils/capitalize";
 import convertDollar from "@/utils/format-currency";
 import cartService from "@/services/cart-service";
+import Link from "next/link";
 
 export default function ProductPage() {
     const [loading, setLoading] = useState(true);
     const [product, setProduct] = useState({});
     const [quantity, setQuantity] = useState(1);
+    const [similarProducts, setSimilarProducts] = useState([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const params = useParams();
     const router = useRouter();
@@ -35,7 +37,25 @@ export default function ProductPage() {
                 });
             }
         };
+
+        const fetchSimilarProducts = async () => {
+            try {
+                setLoading(true);
+                const data = await productService.getSimilarProducts(
+                    params?.id
+                );
+                setSimilarProducts(data);
+                setLoading(false);
+            } catch (err) {
+                toast({
+                    title: "Error!",
+                    description: err?.response?.data?.message,
+                });
+            }
+        };
+
         fetchProduct();
+        fetchSimilarProducts();
     }, []);
 
     const addToCart = async () => {
@@ -53,13 +73,19 @@ export default function ProductPage() {
         }
     };
 
+    console.log(similarProducts);
+
     return (
         !loading && (
-            <div className="p-24 w-full h-full flex justify-center relative mt-16 border-t-2 mx-16">
-                <div className="shadow-2xl rounded-3xl">
+            <div className="p-24 w-full h-full flex justify-center relative mt-16 border-t-2 mx-16 flex-col">
+                <div>
                     <div className="flex gap-8">
                         <div className="w-[30rem] h-[30rem] flex justify-center items-center text-white rounded-3xl bg-[#F2F2F2]">
-                            <img src={product?.imageUrl} alt="product image" className="object-contain h-full w-full"/>
+                            <img
+                                src={product?.imageUrl}
+                                alt="product image"
+                                className="object-contain h-full w-full"
+                            />
                         </div>
                         <div className="px-12 w-[calc(100%-30rem)] h-[30rem] flex flex-col py-6">
                             <h1 className="text-4xl font-bold">
@@ -80,12 +106,16 @@ export default function ProductPage() {
                                         className="w-12 h-12 p-0"
                                         variant="ghost"
                                         onClick={() =>
-                                            setQuantity(Math.max(quantity - 1, 1))
+                                            setQuantity(
+                                                Math.max(quantity - 1, 1)
+                                            )
                                         }
                                     >
                                         -
                                     </Button>
-                                    <div className="mx-4 text-md ">{quantity}</div>
+                                    <div className="mx-4 text-md ">
+                                        {quantity}
+                                    </div>
                                     <Button
                                         className="w-12 h-12 p-0"
                                         variant="ghost"
@@ -110,6 +140,25 @@ export default function ProductPage() {
                                 </Button>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div className="mt-12">
+                    <h1 className="font-bold text-3xl">Related Products</h1>
+                    <div className="flex gap-2 mt-5">
+                        {similarProducts.map((el, index) => (
+                            <Link href={`/product/${el.id}`} className="flex-1">
+                                <div className="flex flex-col">
+                                    <img
+                                        src={el?.imageUrl}
+                                        alt="product image"
+                                        className="object-contain w-full h-64 rounded-3xl bg-[#F2F2F2]"
+                                    />
+                                    <div className="mt-2 text-center">
+                                        {el.name}
+                                    </div>
+                                </div>
+                            </Link>
+                        ))}
                     </div>
                 </div>
             </div>
