@@ -82,9 +82,7 @@ export default function CartPage() {
         }
     };
 
-    return loading ? (
-        <>Loading</>
-    ) : (
+    return (
         <div className="w-full py-12 px-12 mt-16 border-t-2 mx-16">
             <h1 className="font-bold text-3xl mb-8">Your Cart</h1>
             {cart.length === 0 ? (
@@ -189,10 +187,11 @@ export default function CartPage() {
                             </div>
                         </div>
                         <Button
-                            className="mt-5 rounded-3xl px-5"
+                            className="mt-5 rounded-3xl px-5 w-[180px]"
                             onClick={handleCheckout}
+                            disable={loading}
                         >
-                            Proceed to checkout
+                            {loading ? "Loading..." : "Proceed to checkout"}
                         </Button>
                     </div>
                 </>
