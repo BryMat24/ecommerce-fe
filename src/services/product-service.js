@@ -24,6 +24,15 @@ class ProductService {
             throw err;
         }
     }
+
+    async getSimilarProducts(productId) {
+        try {
+            const { data } = await this.httpClient.get(`/product/similar/${productId}`, false);
+            return data;
+        } catch (err) {
+            throw err;
+        }
+    }
 }
 
 const productService = new ProductService(FetchClient);
