@@ -7,16 +7,16 @@ import Link from "next/link";
 
 const featuredProducts = [
     {
-        id: 5,
-        name: "Microsoft Surface Pro 9",
+        id: 1,
+        name: "Apple MacBook Air M2",
     },
     {
-        id: 15,
+        id: 14,
         name: "Samsung Galaxy S23",
     },
     {
-        id: 23,
-        name: "Apple iPad Air (5th Generation)",
+        id: 25,
+        name: "Sony Xperia 1 V",
     },
 ];
 export default function SearchBar() {
