@@ -18,7 +18,7 @@ class OrderService {
                 })
             })
 
-            const { data } = await this.httpClient.post("/order/create-checkout-session", checkoutItems, true);
+            const { data } = await this.httpClient.post(`${process.env.ORDER_SERVER}/order/create-checkout-session`, checkoutItems, true);
             localStorage.setItem("sessionId", data?.sessionId);
             return data;
         } catch (err) {
@@ -28,7 +28,7 @@ class OrderService {
 
     async getOrders() {
         try {
-            const { data } = await this.httpClient.get("/order", true);
+            const { data } = await this.httpClient.get(`${process.env.ORDER_SERVER}/order`, true);
             return data;
         } catch (err) {
             throw err;
@@ -37,7 +37,7 @@ class OrderService {
 
     async getOrderDetail(orderId) {
         try {
-            const { data } = await this.httpClient.get(`/order/${orderId}`, true);
+            const { data } = await this.httpClient.get(`${process.env.ORDER_SERVER}/order/${orderId}`, true);
             return data;
         } catch (err) {
             throw err;
@@ -46,7 +46,7 @@ class OrderService {
 
     async createOrders(sessionId) {
         try {
-            await this.httpClient.post("/order", sessionId, true);
+            await this.httpClient.post(`${process.env.ORDER_SERVER}/order`, sessionId, true);
         } catch (err) {
             throw err;
         }

@@ -1,48 +1,48 @@
-import { apiClient } from '@/lib/axios';
+import axios from 'axios';
 
 const FetchClient = {
     async get(url, includeAccessToken = true) {
         if (includeAccessToken) {
-            return await apiClient(url, {
+            return await axios.get(url, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("access_token")}`,
                 },
             });
         } else {
-            return await apiClient(url);
+            return await axios.get(url);
         }
     },
     async post(url, body, includeAccessToken = true) {
         if (includeAccessToken) {
-            return await apiClient.post(url, body, {
+            return await axios.post(url, body, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("access_token")}`,
                 },
             });
         } else {
-            return await apiClient.post(url, body);
+            return await axios.post(url, body);
         }
     },
     async put(url, includeAccessToken = true) {
         if (includeAccessToken) {
-            return await apiClient.put(url, null, {
+            return await axios.put(url, null, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("access_token")}`,
                 },
             });
         } else {
-            return await apiClient.put(url);
+            return await axios.put(url);
         }
     },
     async delete(url, includeAccessToken = true) {
         if (includeAccessToken) {
-            return await apiClient.delete(url, {
+            return await axios.delete(url, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("access_token")}`,
                 },
             });
         } else {
-            return await apiClient.delete(url);
+            return await axios.delete(url);
         }
     }
 };
