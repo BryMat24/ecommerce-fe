@@ -17,7 +17,6 @@ export default function ProductPage() {
     const [loading, setLoading] = useState(true);
     const [product, setProduct] = useState({});
     const [quantity, setQuantity] = useState(1);
-    const [similarProducts, setSimilarProducts] = useState([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const params = useParams();
     const router = useRouter();
@@ -40,24 +39,7 @@ export default function ProductPage() {
             }
         };
 
-        const fetchSimilarProducts = async () => {
-            try {
-                setLoading(true);
-                const data = await productService.getSimilarProducts(
-                    params?.id
-                );
-                setSimilarProducts(data);
-                setLoading(false);
-            } catch (err) {
-                toast({
-                    title: "Error!",
-                    description: err?.response?.data?.message,
-                });
-            }
-        };
-
         fetchProduct();
-        fetchSimilarProducts();
     }, []);
 
     const addToCart = async () => {
@@ -74,8 +56,6 @@ export default function ProductPage() {
             });
         }
     };
-
-    console.log(similarProducts);
 
     return (
         !loading && (
@@ -103,36 +83,6 @@ export default function ProductPage() {
                                 <p className="mt-1">Stock: {product?.stock}</p>
                             </div>
                             <div className="mt-8 flex items-center gap-5">
-                                <div className="flex items-center bg-[#F2F2F2] rounded-lg h-[45px]">
-                                    <Button
-                                        className="w-12 h-12 p-0"
-                                        variant="ghost"
-                                        onClick={() =>
-                                            setQuantity(
-                                                Math.max(quantity - 1, 1)
-                                            )
-                                        }
-                                    >
-                                        -
-                                    </Button>
-                                    <div className="mx-4 text-md ">
-                                        {quantity}
-                                    </div>
-                                    <Button
-                                        className="w-12 h-12 p-0"
-                                        variant="ghost"
-                                        onClick={() =>
-                                            setQuantity(
-                                                Math.min(
-                                                    quantity + 1,
-                                                    product?.stock
-                                                )
-                                            )
-                                        }
-                                    >
-                                        +
-                                    </Button>
-                                </div>
                                 <Button
                                     onClick={() => addToCart()}
                                     className="h-[45px]"
@@ -144,15 +94,7 @@ export default function ProductPage() {
                         </div>
                     </div>
                 </div>
-                <div className="mt-12 w-[95%]">
-                    <h1 className="font-bold text-3xl">Related Products</h1>
-                    <div className="flex gap-2 mt-5 justify-between">
-                        {
-                            similarProducts.map((el, index) => (<ProductCard product={el} key={index} />))
-                        }
-                    </div>
-                </div>
-                <Footer/>
+                <Footer />
             </div>
         )
     );

@@ -75,6 +75,7 @@ export default function ExplorePage() {
         setCurrPage(1);
     }, [categoryParam]);
 
+    console.log(products);
     return (
         <div className="w-full ">
             <div className="relative">
@@ -131,7 +132,7 @@ export default function ExplorePage() {
                         </div>
 
                         <div className="flex gap-8 flex-wrap mt-12 justify-center">
-                            {products?.product?.map((product, index) => (
+                            {products?.map((product, index) => (
                                 <ProductCard product={product} key={index} />
                             ))}
                         </div>
