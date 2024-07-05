@@ -5,7 +5,6 @@ import ProductCard from "@/components/product-card/product-card";
 import { useEffect, useState } from "react";
 import productService from "@/services/product-service";
 import { useToast } from "@/components/ui/use-toast";
-import Navbar from "@/components/navbar/navbar";
 import SearchBar from "@/components/searchbar/searchbar";
 import {
     DropdownMenu,
@@ -32,6 +31,7 @@ export default function ExplorePage() {
     const categoryParam = searchParams.get("category");
     const [currPage, setCurrPage] = useState(1);
     const [categorySlug, setCategorySlug] = useState(categoryParam);
+    const [totalPages, setTotalPage] = useState(1);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -39,10 +39,11 @@ export default function ExplorePage() {
                 setLoading(true);
                 const data = await productService.getProducts(
                     categoryParam
-                        ? `?categorySlug=${categoryParam}&currPage=${currPage}`
-                        : `?currPage=${currPage}`
+                        ? `?category=${categoryParam}&page=${currPage}`
+                        : `?page=${currPage}`
                 );
-                setProducts(data);
+                setProducts(data.products);
+                setTotalPage(data.totalPages);
                 setLoading(false);
             } catch (err) {
                 toast({
@@ -75,7 +76,6 @@ export default function ExplorePage() {
         setCurrPage(1);
     }, [categoryParam]);
 
-    console.log(products);
     return (
         <div className="w-full ">
             <div className="relative">
@@ -118,7 +118,7 @@ export default function ExplorePage() {
 
                                         {categories.map((el, index) => (
                                             <Link
-                                                href={`explore?category=${el?.slug}`}
+                                                href={`explore?category=${el?.name}`}
                                                 key={index}
                                             >
                                                 <DropdownMenuItem>
@@ -138,7 +138,7 @@ export default function ExplorePage() {
                         </div>
                         <div className="flex justify-center mt-24">
                             <Pagination
-                                count={products?.totalPages}
+                                count={totalPages}
                                 onChange={(e, value) => {
                                     e.preventDefault();
                                     setCurrPage(value);

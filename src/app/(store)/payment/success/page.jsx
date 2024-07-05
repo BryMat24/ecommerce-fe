@@ -5,27 +5,6 @@ import orderService from "@/services/order-service";
 import Link from "next/link";
 
 const SuccessPage = () => {
-    const [loading, setLoading] = useState(false);
-    const { toast } = useToast();
-
-    useEffect(() => {
-        console.log("test");
-        addOrder();
-    }, []);
-
-    const addOrder = async () => {
-        try {
-            setLoading(true);
-            await orderService.createOrders(localStorage.getItem("sessionId"));
-            setLoading(false);
-        } catch (err) {
-            toast({
-                title: "Error!",
-                description: err?.response?.data?.message,
-            });
-        }
-    };
-
     return (
         <div className="flex items-center justify-center h-[90vh] w-full">
             <div className="pt-5">

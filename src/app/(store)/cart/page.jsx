@@ -72,7 +72,7 @@ export default function CartPage() {
         try {
             setLoading(true);
             const data = await orderService.getCheckoutSession(cart);
-            router.push(data?.checkoutUrl);
+            router.push(data?.url);
             setLoading(false);
         } catch (err) {
             toast({
@@ -138,7 +138,7 @@ export default function CartPage() {
                                             if (el.quantity == 1) return;
                                             updateCartQuantity(
                                                 el?.productId,
-                                                "decrement"
+                                                -1
                                             );
                                         }}
                                     >
@@ -155,7 +155,7 @@ export default function CartPage() {
                                                 return;
                                             updateCartQuantity(
                                                 el?.productId,
-                                                "increment"
+                                                1
                                             );
                                         }}
                                     >

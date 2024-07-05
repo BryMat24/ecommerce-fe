@@ -47,14 +47,7 @@ export default function OrderPage() {
                                 className="w-full h-36 border-b-2 border-r-2 m-4 flex items-center justify-between transition-all hover:translate-y-[-0.25rem] hover:shadow-lg"
                             >
                                 <div className="flex items-center gap-5">
-                                    <div className="flex items-center justify-center h-36 w-36 p-2 bg-[#F2F2F2]">
-                                        <img
-                                            className="object-contain"
-                                            src={order?.imageUrl}
-                                        />
-                                    </div>
-                                    
-                                    <div className="flex gap-2 flex-col">
+                                    <div className="flex gap-2 flex-col ml-5">
                                         <p className="font-bold">
                                             Order ID: {order?.id}
                                         </p>
@@ -63,7 +56,6 @@ export default function OrderPage() {
                                                 order?.totalPrice
                                             )}
                                         </p>
-                                        <p>{formatLongDate(order?.dateIn)}</p>
                                     </div>
                                 </div>
                                 <div className="px-4 text-2xl font-semibold pr-16">

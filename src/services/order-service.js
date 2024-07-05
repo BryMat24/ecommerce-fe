@@ -9,16 +9,13 @@ class OrderService {
     async getCheckoutSession(cartItems) {
         try {
             const checkoutItems = []
-            cartItems.forEach((el) => {
+            cartItems?.items.forEach((el) => {
                 checkoutItems.push({
-                    productName: el.product.name,
-                    quantity: el.quantity,
-                    price: el.product.price,
-                    productId: el.product.id
+                    productId: el.productId
                 })
             })
 
-            const { data } = await this.httpClient.post(`${process.env.NEXT_PUBLIC_ORDER_SERVER}/order/create-checkout-session`, checkoutItems, true);
+            const { data } = await this.httpClient.post(`${process.env.NEXT_PUBLIC_ORDER_SERVER}/order`, checkoutItems, true);
             localStorage.setItem("sessionId", data?.sessionId);
             return data;
         } catch (err) {
