@@ -7,7 +7,7 @@ class ProductService {
 
     async getProducts(params) {
         try {
-            const { data } = await this.httpClient.get(`${process.env.NEXT_PUBLIC_PRODUCT_SERVER}/product` + `${params ? params : ""}`, false);
+            const { data } = await this.httpClient.get(`${process.env.NEXT_PUBLIC_SERVER}/product` + `${params ? params : ""}`, false);
             return data;
         } catch (err) {
             throw err;
@@ -16,7 +16,7 @@ class ProductService {
 
     async getProductDetail(productId) {
         try {
-            const { data } = await this.httpClient.get(`${process.env.NEXT_PUBLIC_PRODUCT_SERVER}/product/${productId}`, false);
+            const { data } = await this.httpClient.get(`${process.env.NEXT_PUBLIC_SERVER}/product/${productId}`, false);
             return data;
         } catch (err) {
             throw err;
@@ -25,7 +25,7 @@ class ProductService {
 
     async getSimilarProducts(productId) {
         try {
-            const { data } = await this.httpClient.get(`${process.env.NEXT_PUBLIC_PRODUCT_SERVER}/product/similar/${productId}`, false);
+            const { data } = await this.httpClient.get(`${process.env.NEXT_PUBLIC_SERVER}/product/similar/${productId}`, false);
             return data;
         } catch (err) {
             throw err;

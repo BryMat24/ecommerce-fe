@@ -7,7 +7,7 @@ class CategoryService {
 
     async getCategories() {
         try {
-            const { data } = await this.httpClient.get(`${process.env.NEXT_PUBLIC_PRODUCT_SERVER}/category`, false);
+            const { data } = await this.httpClient.get(`${process.env.NEXT_PUBLIC_SERVER}/category`, false);
             return data;
         } catch (err) {
             throw err;

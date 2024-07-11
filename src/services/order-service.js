@@ -15,7 +15,7 @@ class OrderService {
                 })
             })
 
-            const { data } = await this.httpClient.post(`${process.env.NEXT_PUBLIC_ORDER_SERVER}/order`, checkoutItems, true);
+            const { data } = await this.httpClient.post(`${process.env.NEXT_PUBLIC_SERVER}/order`, checkoutItems, true);
             localStorage.setItem("sessionId", data?.sessionId);
             return data;
         } catch (err) {
@@ -25,7 +25,7 @@ class OrderService {
 
     async getOrders() {
         try {
-            const { data } = await this.httpClient.get(`${process.env.NEXT_PUBLIC_ORDER_SERVER}/order`, true);
+            const { data } = await this.httpClient.get(`${process.env.NEXT_PUBLIC_SERVER}/order`, true);
             return data;
         } catch (err) {
             throw err;
@@ -34,7 +34,7 @@ class OrderService {
 
     async getOrderDetail(orderId) {
         try {
-            const { data } = await this.httpClient.get(`${process.env.NEXT_PUBLIC_ORDER_SERVER}/order/${orderId}`, true);
+            const { data } = await this.httpClient.get(`${process.env.NEXT_PUBLIC_SERVER}/order/${orderId}`, true);
             return data;
         } catch (err) {
             throw err;
@@ -43,7 +43,7 @@ class OrderService {
 
     async createOrders(sessionId) {
         try {
-            await this.httpClient.post(`${process.env.ORDER_SERVER}/order`, sessionId, true);
+            await this.httpClient.post(`${process.env.NEXT_PUBLIC_SERVER}/order`, sessionId, true);
         } catch (err) {
             throw err;
         }
