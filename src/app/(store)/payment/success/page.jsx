@@ -13,6 +13,8 @@ const SuccessPage = () => {
                     src="/payment.png"
                     alt="payment successful image"
                     className="object-cover"
+                    width={400}
+                    height={300}
                 />
                 <p className="text-center text-2xl">
                     Your payment is successful!

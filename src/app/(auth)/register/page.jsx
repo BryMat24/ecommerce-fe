@@ -38,7 +38,10 @@ const Register = () => {
                 src="/login.png"
                 className="w-[36rem] h-[36rem] rounded-s-lg shadow-2xl"
                 alt="login png"
+                width={1440}
+                height={900}
             />
+
             <form
                 className="w-[36rem] h-[36rem] flex flex-col justify-center bg-primary-foreground p-12 rounded-e-lg shadow-2xl"
                 onSubmit={handleSubmit}

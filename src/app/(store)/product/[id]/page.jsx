@@ -68,6 +68,8 @@ export default function ProductPage() {
                                 src={product?.imageUrl}
                                 alt="product image"
                                 className="object-contain h-4/5 w-4/5 hover:scale-125 transition-all duration-500 cursor-zoom-in"
+                                width={288}
+                                height={288}
                             />
                         </div>
                         <div className="px-12 w-[calc(100%-30rem)] h-[30rem] flex flex-col justify-center">

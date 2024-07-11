@@ -101,8 +101,11 @@ export default function CartPage() {
                                 <Image
                                     src={el?.imageUrl}
                                     alt="alt image"
+                                    width={200}
+                                    height={200}
                                     className="object-contain w-28 h-28"
                                 />
+
                                 <div className="flex flex-col justify-center">
                                     <p className="font-md text-xl">
                                         {capitalizeFirstLetter(el?.name)}
