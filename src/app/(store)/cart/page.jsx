@@ -9,6 +9,7 @@ import capitalizeFirstLetter from "@/utils/capitalize";
 import Swal from "sweetalert2";
 import orderService from "@/services/order-service";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function CartPage() {
     const [cart, setCart] = useState([]);
@@ -72,7 +73,7 @@ export default function CartPage() {
         try {
             setLoading(true);
             const data = await orderService.getCheckoutSession(cart);
-            router.push(data?.checkoutUrl);
+            router.push(data?.url);
             setLoading(false);
         } catch (err) {
             toast({
@@ -85,7 +86,7 @@ export default function CartPage() {
     return (
         <div className="w-full py-12 px-12 mt-16 border-t-2 mx-16">
             <h1 className="font-bold text-3xl mb-8">Your Cart</h1>
-            {cart.length === 0 ? (
+            {cart?.items?.length === 0 ? (
                 <div className="text-muted-foreground">Cart is empty</div>
             ) : (
                 <>
@@ -94,24 +95,20 @@ export default function CartPage() {
                         <div className="flex-1">Quantity</div>
                         <div>Subtotal</div>
                     </div>
-                    {cart?.map((el, index) => (
+                    {cart?.items?.map((el, index) => (
                         <div className="flex py-2 px-5" key={index}>
                             <div className="w-2/3 flex gap-5">
-                                <img
-                                    src={el?.product?.imageUrl}
-                                    alt=""
+                                <Image
+                                    src={el?.imageUrl}
+                                    alt="alt image"
                                     className="object-contain w-28 h-28"
                                 />
                                 <div className="flex flex-col justify-center">
                                     <p className="font-md text-xl">
-                                        {capitalizeFirstLetter(
-                                            el?.product?.name
-                                        )}
+                                        {capitalizeFirstLetter(el?.name)}
                                     </p>
                                     <p className="font-bold">
-                                        {convertDollar.format(
-                                            el?.product?.price
-                                        )}
+                                        {convertDollar.format(el?.price)}
                                     </p>
                                     <p
                                         className="text-red-400 cursor-pointer text-sm mt-2"
@@ -123,7 +120,7 @@ export default function CartPage() {
                                             }).then((result) => {
                                                 if (result.isConfirmed) {
                                                     handleRemoveItem(
-                                                        el?.product?.id
+                                                        el?.productId
                                                     );
                                                 }
                                             });
@@ -141,8 +138,8 @@ export default function CartPage() {
                                         onClick={() => {
                                             if (el.quantity == 1) return;
                                             updateCartQuantity(
-                                                el?.product?.id,
-                                                "decrement"
+                                                el?.productId,
+                                                -1
                                             );
                                         }}
                                     >
@@ -155,14 +152,11 @@ export default function CartPage() {
                                         variant="ghost"
                                         className="h-8 w-8 rounded-full text-lg"
                                         onClick={() => {
-                                            if (
-                                                el?.quantity ==
-                                                el?.product?.stock
-                                            )
+                                            if (el?.quantity == el?.stock)
                                                 return;
                                             updateCartQuantity(
-                                                el?.product?.id,
-                                                "increment"
+                                                el?.productId,
+                                                1
                                             );
                                         }}
                                     >
@@ -173,7 +167,7 @@ export default function CartPage() {
                             <div className="flex items-center">
                                 <div>
                                     {convertDollar.format(
-                                        el?.quantity * el?.product?.price
+                                        el?.quantity * el?.price
                                     )}
                                 </div>
                             </div>
@@ -189,7 +183,7 @@ export default function CartPage() {
                         <Button
                             className="mt-5 rounded-3xl px-5 w-[180px]"
                             onClick={handleCheckout}
-                            disable={loading}
+                            disabled={loading}
                         >
                             {loading ? "Loading..." : "Proceed to checkout"}
                         </Button>

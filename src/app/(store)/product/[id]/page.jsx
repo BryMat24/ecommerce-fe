@@ -9,13 +9,15 @@ import { useParams, useRouter } from "next/navigation";
 import capitalizeFirstLetter from "@/utils/capitalize";
 import convertDollar from "@/utils/format-currency";
 import cartService from "@/services/cart-service";
+import ProductCard from "@/components/product-card/product-card";
+import Footer from "@/components/footer/footer";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function ProductPage() {
     const [loading, setLoading] = useState(true);
     const [product, setProduct] = useState({});
     const [quantity, setQuantity] = useState(1);
-    const [similarProducts, setSimilarProducts] = useState([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const params = useParams();
     const router = useRouter();
@@ -38,24 +40,7 @@ export default function ProductPage() {
             }
         };
 
-        const fetchSimilarProducts = async () => {
-            try {
-                setLoading(true);
-                const data = await productService.getSimilarProducts(
-                    params?.id
-                );
-                setSimilarProducts(data);
-                setLoading(false);
-            } catch (err) {
-                toast({
-                    title: "Error!",
-                    description: err?.response?.data?.message,
-                });
-            }
-        };
-
         fetchProduct();
-        fetchSimilarProducts();
     }, []);
 
     const addToCart = async () => {
@@ -73,21 +58,19 @@ export default function ProductPage() {
         }
     };
 
-    console.log(similarProducts);
-
     return (
         !loading && (
-            <div className="p-24 w-full h-full flex justify-center relative mt-16 border-t-2 mx-16 flex-col">
+            <div className="p-24 w-full h-full flex justify-center relative mt-16 border-t-2 mx-16 flex-col pb-0">
                 <div>
                     <div className="flex gap-8">
                         <div className="w-[30rem] h-[30rem] flex justify-center items-center text-white rounded-3xl bg-[#F2F2F2]">
-                            <img
+                            <Image
                                 src={product?.imageUrl}
                                 alt="product image"
-                                className="object-contain h-full w-full"
+                                className="object-contain h-4/5 w-4/5 hover:scale-125 transition-all duration-500 cursor-zoom-in"
                             />
                         </div>
-                        <div className="px-12 w-[calc(100%-30rem)] h-[30rem] flex flex-col py-6">
+                        <div className="px-12 w-[calc(100%-30rem)] h-[30rem] flex flex-col justify-center">
                             <h1 className="text-4xl font-bold">
                                 {capitalizeFirstLetter(product?.name)}
                             </h1>
@@ -101,36 +84,6 @@ export default function ProductPage() {
                                 <p className="mt-1">Stock: {product?.stock}</p>
                             </div>
                             <div className="mt-8 flex items-center gap-5">
-                                <div className="flex items-center bg-[#F2F2F2] rounded-lg h-[45px]">
-                                    <Button
-                                        className="w-12 h-12 p-0"
-                                        variant="ghost"
-                                        onClick={() =>
-                                            setQuantity(
-                                                Math.max(quantity - 1, 1)
-                                            )
-                                        }
-                                    >
-                                        -
-                                    </Button>
-                                    <div className="mx-4 text-md ">
-                                        {quantity}
-                                    </div>
-                                    <Button
-                                        className="w-12 h-12 p-0"
-                                        variant="ghost"
-                                        onClick={() =>
-                                            setQuantity(
-                                                Math.min(
-                                                    quantity + 1,
-                                                    product?.stock
-                                                )
-                                            )
-                                        }
-                                    >
-                                        +
-                                    </Button>
-                                </div>
                                 <Button
                                     onClick={() => addToCart()}
                                     className="h-[45px]"
@@ -142,25 +95,7 @@ export default function ProductPage() {
                         </div>
                     </div>
                 </div>
-                <div className="mt-12">
-                    <h1 className="font-bold text-3xl">Related Products</h1>
-                    <div className="flex gap-2 mt-5">
-                        {similarProducts.map((el, index) => (
-                            <Link href={`/product/${el.id}`} className="flex-1">
-                                <div className="flex flex-col">
-                                    <img
-                                        src={el?.imageUrl}
-                                        alt="product image"
-                                        className="object-contain w-full h-64 rounded-3xl bg-[#F2F2F2]"
-                                    />
-                                    <div className="mt-2 text-center">
-                                        {el.name}
-                                    </div>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
-                </div>
+                <Footer />
             </div>
         )
     );

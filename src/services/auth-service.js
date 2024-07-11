@@ -7,7 +7,7 @@ class AuthService {
 
     async register(userData) {
         try {
-            const { data } = await this.httpClient.post(`${process.env.USER_SERVER}/user/register`, userData, false);
+            const { data } = await this.httpClient.post(`${process.env.NEXT_PUBLIC_SERVER}/user/register`, userData, false);
             return data;
         } catch (err) {
             throw err;
@@ -16,7 +16,7 @@ class AuthService {
 
     async login(userData) {
         try {
-            const { data } = await this.httpClient.post(`${process.env.USER_SERVER}/user/login`, userData, false);
+            const { data } = await this.httpClient.post(`${process.env.NEXT_PUBLIC_SERVER}/user/login`, userData, false);
             localStorage.setItem("access_token", data?.token);
             localStorage.setItem("email", data?.email);
             localStorage.setItem("username", data?.name);

@@ -13,6 +13,7 @@ const FetchClient = {
         }
     },
     async post(url, body, includeAccessToken = true) {
+        console.log(url);
         if (includeAccessToken) {
             return await axios.post(url, body, {
                 headers: {

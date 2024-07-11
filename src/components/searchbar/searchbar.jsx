@@ -7,16 +7,16 @@ import Link from "next/link";
 
 const featuredProducts = [
     {
-        id: 5,
+        id: 1,
         name: "Apple MacBook Air M2",
     },
     {
-        id: 15,
-        name: "Google Pixel Tablet",
+        id: 14,
+        name: "Samsung Galaxy S23",
     },
     {
-        id: 23,
-        name: "Xiaomi 13T",
+        id: 25,
+        name: "Sony Xperia 1 V",
     },
 ];
 export default function SearchBar() {
@@ -61,7 +61,7 @@ export default function SearchBar() {
             >
                 {relatedSearch.length === 0 ? (
                     <div className="pl-4 my-2">
-                        No products found matching '{searchValue}'
+                        No products found matching &apos;{searchValue}&apos;
                     </div>
                 ) : (
                     <div>

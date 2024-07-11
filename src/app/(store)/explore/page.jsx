@@ -5,7 +5,6 @@ import ProductCard from "@/components/product-card/product-card";
 import { useEffect, useState } from "react";
 import productService from "@/services/product-service";
 import { useToast } from "@/components/ui/use-toast";
-import Navbar from "@/components/navbar/navbar";
 import SearchBar from "@/components/searchbar/searchbar";
 import {
     DropdownMenu,
@@ -22,6 +21,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import Footer from "@/components/footer/footer";
 import Pagination from "@mui/material/Pagination";
+import Image from "next/image";
 
 export default function ExplorePage() {
     const [products, setProducts] = useState([]);
@@ -32,6 +32,7 @@ export default function ExplorePage() {
     const categoryParam = searchParams.get("category");
     const [currPage, setCurrPage] = useState(1);
     const [categorySlug, setCategorySlug] = useState(categoryParam);
+    const [totalPages, setTotalPage] = useState(1);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -39,10 +40,11 @@ export default function ExplorePage() {
                 setLoading(true);
                 const data = await productService.getProducts(
                     categoryParam
-                        ? `?categorySlug=${categoryParam}&currPage=${currPage}`
-                        : `?currPage=${currPage}`
+                        ? `?category=${categoryParam}&page=${currPage}`
+                        : `?page=${currPage}`
                 );
-                setProducts(data);
+                setProducts(data.products);
+                setTotalPage(data.totalPages);
                 setLoading(false);
             } catch (err) {
                 toast({
@@ -81,7 +83,7 @@ export default function ExplorePage() {
                 <Carousel>
                     {carouselContent?.map((el, index) => (
                         <div key={index}>
-                            <img
+                            <Image
                                 src={el.url}
                                 alt="img1"
                                 className="object-cover"
@@ -92,7 +94,7 @@ export default function ExplorePage() {
             </div>
 
             {!loading && (
-                <div className="relative ">
+                <div className="relative transition-all slide-up">
                     <div className="px-8 absolute top-[-70px] left-1/2 transform -translate-x-1/2 bg-white w-[90%] rounded-t-lg pb-12">
                         <div className="flex justify-between w-full">
                             <h1 className="font-bold text-3xl mb-4 mt-5">
@@ -117,7 +119,7 @@ export default function ExplorePage() {
 
                                         {categories.map((el, index) => (
                                             <Link
-                                                href={`explore?category=${el?.slug}`}
+                                                href={`explore?category=${el?.name}`}
                                                 key={index}
                                             >
                                                 <DropdownMenuItem>
@@ -130,14 +132,14 @@ export default function ExplorePage() {
                             </div>
                         </div>
 
-                        <div className="flex gap-8 flex-wrap mt-12 justify-start">
-                            {products?.product?.map((product, index) => (
+                        <div className="flex gap-8 flex-wrap mt-12 justify-center">
+                            {products?.map((product, index) => (
                                 <ProductCard product={product} key={index} />
                             ))}
                         </div>
                         <div className="flex justify-center mt-24">
                             <Pagination
-                                count={products?.totalPages}
+                                count={totalPages}
                                 onChange={(e, value) => {
                                     e.preventDefault();
                                     setCurrPage(value);
