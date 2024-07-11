@@ -54,7 +54,9 @@ const OrderItem = () => {
                                     src={orderItem?.product.imageUrl}
                                     alt="product image"
                                     className="w-full h-full object-contain"
-                                ></Image>
+                                    height={80}
+                                    width={80}
+                                />
                             </div>
                             <div className="w-full pr-8">
                                 <div className="flex mx-4 justify-between">

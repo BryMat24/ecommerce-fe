@@ -30,8 +30,6 @@ export default function OrderPage() {
         fetchOrders();
     }, []);
 
-    console.log(orders);
-
     return (
         <div className="p-12 w-full mt-16 border-t-2 mx-16">
             <div className="w-full">

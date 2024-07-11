@@ -10,8 +10,10 @@ export default function ProductCard({ product }) {
                 <div className="w-[18rem] h-[18rem] border-none rounded-lg bg-[#F2F2F2] flex justify-center items-center p-5 transition-all hover:translate-y-[-0.75rem] hover:shadow-xl duration-300">
                     <Image
                         src={product?.imageUrl}
-                        className="rounded-t-lg w-4/5 h-4/5 object-contain"
                         alt="Product Picture"
+                        width={400}
+                        height={400}
+                        className="rounded-t-lg w-4/5 h-4/5 object-contain"
                     />
                 </div>
             </Link>
