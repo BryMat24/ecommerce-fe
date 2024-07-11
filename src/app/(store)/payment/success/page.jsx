@@ -3,12 +3,13 @@ import { useState, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import orderService from "@/services/order-service";
 import Link from "next/link";
+import Image from "next/image";
 
 const SuccessPage = () => {
     return (
         <div className="flex items-center justify-center h-[90vh] w-full">
             <div className="pt-5">
-                <img
+                <Image
                     src="/payment.png"
                     alt="payment successful image"
                     className="object-cover"

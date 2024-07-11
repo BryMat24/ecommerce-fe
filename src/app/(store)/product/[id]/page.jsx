@@ -12,6 +12,7 @@ import cartService from "@/services/cart-service";
 import ProductCard from "@/components/product-card/product-card";
 import Footer from "@/components/footer/footer";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function ProductPage() {
     const [loading, setLoading] = useState(true);
@@ -63,7 +64,7 @@ export default function ProductPage() {
                 <div>
                     <div className="flex gap-8">
                         <div className="w-[30rem] h-[30rem] flex justify-center items-center text-white rounded-3xl bg-[#F2F2F2]">
-                            <img
+                            <Image
                                 src={product?.imageUrl}
                                 alt="product image"
                                 className="object-contain h-4/5 w-4/5 hover:scale-125 transition-all duration-500 cursor-zoom-in"

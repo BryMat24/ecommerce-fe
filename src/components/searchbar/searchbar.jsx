@@ -61,7 +61,7 @@ export default function SearchBar() {
             >
                 {relatedSearch.length === 0 ? (
                     <div className="pl-4 my-2">
-                        No products found matching '{searchValue}'
+                        No products found matching &apos;{searchValue}&apos;
                     </div>
                 ) : (
                     <div>

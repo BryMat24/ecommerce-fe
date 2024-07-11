@@ -7,6 +7,7 @@ import { useToast } from "@/components/ui/use-toast";
 import orderService from "@/services/order-service";
 import formatLongDate from "@/utils/format-date";
 import convertDollar from "@/utils/format-currency";
+import Image from "next/image";
 
 const OrderItem = () => {
     const params = useParams();
@@ -49,11 +50,11 @@ const OrderItem = () => {
                             key={index}
                         >
                             <div className="h-36 w-36 bg-[#F2F2F2] rounded-lg p-2">
-                                <img
+                                <Image
                                     src={orderItem?.product.imageUrl}
                                     alt="product image"
                                     className="w-full h-full object-contain"
-                                ></img>
+                                ></Image>
                             </div>
                             <div className="w-full pr-8">
                                 <div className="flex mx-4 justify-between">

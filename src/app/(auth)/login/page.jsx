@@ -35,7 +35,11 @@ export default function LoginPage() {
 
     return (
         <div className="w-full flex justify-center items-center h-[calc(100vh-3.5rem)]">
-            <Image src={loginImage} className="w-[36rem] h-[36rem] rounded-s-lg shadow-2xl"/>
+            <Image
+                src={loginImage}
+                className="w-[36rem] h-[36rem] rounded-s-lg shadow-2xl"
+                alt="Login Image"
+            />
             <form
                 className="w-[36rem] h-[36rem] flex flex-col justify-center bg-primary-foreground p-12 rounded-e-lg shadow-2xl"
                 onSubmit={handleSubmit}
@@ -65,7 +69,7 @@ export default function LoginPage() {
                     Login
                 </Button>
                 <Link href="/register" className="mt-2 mx-auto">
-                    Don't have an account?
+                    Don&apos;t have an account?
                 </Link>
             </form>
         </div>

@@ -7,24 +7,24 @@ import MainImg from "../../public/ecommerce.webp";
 import MainPageImg from "../../public/main-page-img.jpeg";
 import "@/components/style/main-page.css";
 export default function Home() {
-
     return (
         <main className="w-full h-[100vh]">
-            <div
-                className="w-full h-full flex gradient-background"
-            >
+            <div className="w-full h-full flex gradient-background">
                 <div
                     className="w-1/2 h-full flex items-center justify-center"
                     id="main-page-image-2"
                 >
-                    <img src="/landing.png" className="object-contain h-2/3 w-2/3 "></img>     
+                    <Image
+                        src="/landing.png"
+                        alt="landing"
+                        className="object-contain h-2/3 w-2/3 "
+                    ></Image>
                 </div>
                 <div className="flex flex-col w-1/2 h-full justify-center">
-                    <div
-                        className="w-full px-12 pb-4"
-                        id="main-page-section-1"
-                    >
-                        <div className="text-muted-foreground text-sm">FREE DELIVERY FOR FIRST ORDER</div>
+                    <div className="w-full px-12 pb-4" id="main-page-section-1">
+                        <div className="text-muted-foreground text-sm">
+                            FREE DELIVERY FOR FIRST ORDER
+                        </div>
                         <div className="text-5xl font-bold">
                             {" "}
                             Discover Cutting Edge Technology{" "}

@@ -21,6 +21,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import Footer from "@/components/footer/footer";
 import Pagination from "@mui/material/Pagination";
+import Image from "next/image";
 
 export default function ExplorePage() {
     const [products, setProducts] = useState([]);
@@ -82,7 +83,7 @@ export default function ExplorePage() {
                 <Carousel>
                     {carouselContent?.map((el, index) => (
                         <div key={index}>
-                            <img
+                            <Image
                                 src={el.url}
                                 alt="img1"
                                 className="object-cover"

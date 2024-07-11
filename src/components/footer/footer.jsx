@@ -22,11 +22,11 @@ const Footer = () => {
                 <div className="max-w-[400px] absolute right-10 bottom-10">
                     <p className="text-white">Okit for Needs</p>
                     <p className="text-white font-thin text-sm mt-2">
-                        We'll listen to your needs and provide you with the best
-                        products. Upcoming kevin's tenga will soon be available!
+                        We&apos;ll listen to your needs and provide you with the
+                        best products. Upcoming kevin&apos;s tenga will soon be
+                        available!
                     </p>
                 </div>
-                
             </div>
             <div className="flex justify-center mt-8">
                 <div>
@@ -39,7 +39,9 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-            <div className="font-thin text-sm text-center mt-2">© copyright 2024</div>
+            <div className="font-thin text-sm text-center mt-2">
+                © copyright 2024
+            </div>
         </>
     );
 };

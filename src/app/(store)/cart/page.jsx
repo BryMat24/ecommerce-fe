@@ -9,6 +9,7 @@ import capitalizeFirstLetter from "@/utils/capitalize";
 import Swal from "sweetalert2";
 import orderService from "@/services/order-service";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function CartPage() {
     const [cart, setCart] = useState([]);
@@ -97,9 +98,9 @@ export default function CartPage() {
                     {cart?.items?.map((el, index) => (
                         <div className="flex py-2 px-5" key={index}>
                             <div className="w-2/3 flex gap-5">
-                                <img
+                                <Image
                                     src={el?.imageUrl}
-                                    alt=""
+                                    alt="alt image"
                                     className="object-contain w-28 h-28"
                                 />
                                 <div className="flex flex-col justify-center">

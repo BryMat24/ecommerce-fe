@@ -12,7 +12,7 @@ import authService from "@/services/auth-service";
 const Register = () => {
     const [userData, setUserData] = useState({});
     const router = useRouter();
-    const {toast} = useToast();
+    const { toast } = useToast();
 
     const handleOnChange = (e) => {
         setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -34,7 +34,11 @@ const Register = () => {
 
     return (
         <div className="w-full flex justify-center items-center h-[calc(100vh-3.5rem)]">
-            <img src="/login.png" className="w-[36rem] h-[36rem] rounded-s-lg shadow-2xl"/>
+            <Image
+                src="/login.png"
+                className="w-[36rem] h-[36rem] rounded-s-lg shadow-2xl"
+                alt="login png"
+            />
             <form
                 className="w-[36rem] h-[36rem] flex flex-col justify-center bg-primary-foreground p-12 rounded-e-lg shadow-2xl"
                 onSubmit={handleSubmit}
@@ -82,7 +86,6 @@ const Register = () => {
                     Already have an account?
                 </Link>
             </form>
-           
         </div>
     );
 };
